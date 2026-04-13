@@ -52,6 +52,7 @@ export default function AdminVendorRatings() {
   useEffect(() => {
     loadVendors();
     loadRatings();
+    // console.log(vendors)
   }, []);
 
   const showMsg = (message, severity = "success") => setSnackbar({ open: true, message, severity });
@@ -248,7 +249,7 @@ export default function AdminVendorRatings() {
                     <MenuItem value="">Select vendor</MenuItem>
                     {vendors.map((v) => (
                       <MenuItem key={v.id} value={v.id}>
-                        {v.name || `Vendor ${v.id}`}
+                        {v.contactPerson || `Vendor ${v.id}`}
                       </MenuItem>
                     ))}
                   </TextField>
@@ -366,6 +367,9 @@ export default function AdminVendorRatings() {
             <TableHead sx={{ bgcolor: "#fafafa" }}>
               <TableRow sx={{ bgcolor: "#1976d2" }}>
                 <TableCell sx={{ fontWeight: "bold", color: "#fafafa" }}>
+                  ID
+                </TableCell>
+                <TableCell sx={{ fontWeight: "bold", color: "#fafafa" }}>
                   VENDOR
                 </TableCell>
                 <TableCell sx={{ fontWeight: "bold", color: "#fafafa" }}>
@@ -408,7 +412,10 @@ export default function AdminVendorRatings() {
                       sx={{ backgroundColor: getAvgRatingColor(avg) }}
                     >
                       <TableCell>
-                        {r.vendor?.name || `Vendor ${r.vendor?.id}`}
+                        {r.vendor?.id || "No ID"}
+                      </TableCell>
+                      <TableCell>
+                        {r.vendor?.contactPerson || `Vendor ${r.vendor?.id}`}
                       </TableCell>
                       <TableCell>
                         {r.vendor?.companyName || `Vendor ${r.vendor?.id}`}
@@ -469,7 +476,7 @@ export default function AdminVendorRatings() {
                   <MenuItem value="">Select vendor</MenuItem>
                   {vendors.map((v) => (
                     <MenuItem key={v.id} value={v.id}>
-                      {v.name || `Vendor ${v.id}`}
+                      {v.contactPerson || `Vendor ${v.id}`}
                     </MenuItem>
                   ))}
                 </TextField>
