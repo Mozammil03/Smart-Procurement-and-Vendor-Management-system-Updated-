@@ -21,11 +21,24 @@ API.interceptors.response.use(
   (error) => {
     const status = error?.response?.status;
     const requestUrl = error?.config?.url || "";
+    const method = error?.config?.method || "";
     const isAuthRequest = requestUrl.includes("/users/auth") || requestUrl.includes("users/auth");
-    const isVendorRegistration = requestUrl.includes("/vendors") && error?.config?.method === "post";
+    const isVendorRegistration = requestUrl.includes("/vendors") && method === "post";
+
+    console.error("API response error:", {
+      status,
+      requestUrl,
+      method,
+      data: error?.response?.data,
+      message: error?.message,
+    });
+
     if ((status === 401 || status === 403) && !isAuthRequest && !isVendorRegistration) {
-      window.location.href = "/notauthorized";
+      if (window.location.pathname !== "/notauthorized") {
+        window.location.href = "/notauthorized";
+      }
     }
+
     return Promise.reject(error);
   }
 );
