@@ -1,6 +1,7 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import React from "react";
+import { BrowserRouter, Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
 import Home from "../pages/Home";
+import { setGlobalNavigate } from "../utils/navigation";
 import Login from "../pages/Login";
 import EmployeeDashboard from "../pages/employee/EmployeeDashboard";
 import ManagerDashboard from "../pages/manager/ManagerDashboard";
@@ -44,13 +45,16 @@ import ProtectedRoute from "../components/ProtectedRoute";
 import  ProcessPayment from "../pages/finance/ProcessPayment";
 import  Reports from "../pages/finance/Reports";
 
-import { Navigate } from "react-router-dom";
+function RouterContent() {
+  const navigate = useNavigate();
 
-function AppRouter() {
+  useEffect(() => {
+    setGlobalNavigate(navigate);
+  }, [navigate]);
+
   return (
-    <BrowserRouter>
-      <Routes>
-<Route path="/login" element={<Login />} />
+    <Routes>
+      <Route path="/login" element={<Login />} />
 <Route path="/" element={<Home />} />
 
 <Route path="/employee" element={<EmployeeDashboard />} />
@@ -173,8 +177,16 @@ function AppRouter() {
           <Route path="ratings" element={<VendorRatings />} />
         </Route>
         <Route path="/notauthorized" element={<NotAuthorized />} />
- </Routes>
+      </Routes>
+    );
+}
+
+function AppRouter() {
+  return (
+    <BrowserRouter>
+      <RouterContent />
     </BrowserRouter>
   );
 }
+
 export default AppRouter;

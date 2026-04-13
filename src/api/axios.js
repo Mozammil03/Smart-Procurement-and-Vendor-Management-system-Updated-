@@ -2,6 +2,7 @@
 
 
 import axios from "axios";
+import { navigateTo } from "../utils/navigation";
 
 const API = axios.create({
   baseURL: "http://localhost:8097",
@@ -35,7 +36,7 @@ API.interceptors.response.use(
 
     if ((status === 401 || status === 403) && !isAuthRequest && !isVendorRegistration) {
       if (window.location.pathname !== "/notauthorized") {
-        window.location.href = "/notauthorized";
+        navigateTo("/notauthorized", { replace: true });
       }
     }
 
