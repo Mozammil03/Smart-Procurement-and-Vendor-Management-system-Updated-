@@ -30,7 +30,16 @@ export default function ViewPurchaseOrders() {
   return (
     <Container maxWidth="lg" sx={{ mt: 2 }}>
       <Box sx={{ mb: 4 }}>
-        <Typography variant="h4" sx={{ fontWeight: 800, color: "#333", display: 'flex', alignItems: 'center', gap: 2 }}>
+        <Typography
+          variant="h4"
+          sx={{
+            fontWeight: 800,
+            color: "#333",
+            display: "flex",
+            alignItems: "center",
+            gap: 2,
+          }}
+        >
           <ShoppingCartIcon sx={{ fontSize: 40, color: "#1976d2" }} />
           Purchase Orders
         </Typography>
@@ -40,40 +49,89 @@ export default function ViewPurchaseOrders() {
       </Box>
 
       {!vendorId ? (
-        <Paper elevation={0} sx={{ p: 4, textAlign: 'center', borderRadius: "12px", border: "1px solid #e0e0e0" }}>
-          <Typography color="error" sx={{ fontWeight: 'bold' }}>
+        <Paper
+          elevation={0}
+          sx={{
+            p: 4,
+            textAlign: "center",
+            borderRadius: "12px",
+            border: "1px solid #e0e0e0",
+          }}
+        >
+          <Typography color="error" sx={{ fontWeight: "bold" }}>
             Unable to load your purchase orders. Please log in again.
           </Typography>
         </Paper>
       ) : (
-        <Paper elevation={0} sx={{ borderRadius: "12px", border: "1px solid #e0e0e0", overflow: "hidden", boxShadow: "0 4px 12px rgba(0,0,0,0.05)" }}>
+        <Paper
+          elevation={0}
+          sx={{
+            borderRadius: "12px",
+            border: "1px solid #e0e0e0",
+            overflow: "hidden",
+            boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
+          }}
+        >
           <Table>
             <TableHead sx={{ bgcolor: "#fafafa" }}>
               <TableRow>
-                <TableCell sx={{ fontWeight: 'bold' }}>PO NUMBER</TableCell>
-                <TableCell sx={{ fontWeight: 'bold' }}>ORDER DATE</TableCell>
-                <TableCell sx={{ fontWeight: 'bold' }}>STATUS</TableCell>
+                <TableCell sx={{ fontWeight: "bold" }}>PO ID</TableCell>
+                <TableCell sx={{ fontWeight: "bold" }}>PO NUMBER</TableCell>
+                <TableCell sx={{ fontWeight: "bold" }}>ORDER DATE</TableCell>
+                <TableCell sx={{ fontWeight: "bold" }}>STATUS</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {loading ? (
-                <TableRow><TableCell colSpan={3} align="center" sx={{ py: 4 }}>Loading...</TableCell></TableRow>
-              ) : orders.length > 0 ? orders.map(po => (
-              <TableRow key={po.id} hover>
-                <TableCell sx={{ fontFamily: 'monospace', fontWeight: 'bold' }}>#{po.poNumber}</TableCell>
-                <TableCell>{po.orderDate}</TableCell>
-                <TableCell>
-                  <Chip
-                    label={po.status} size="small"
-                    sx={{
-                      fontWeight: 'bold', borderRadius: '6px', fontSize: '0.7rem',
-                      bgcolor: po.status === "COMPLETED" || po.status === "APPROVED" ? "#e8f5e9" : "#fff3e0",
-                      color: po.status === "COMPLETED" || po.status === "APPROVED" ? "#2e7d32" : "#ef6c00"
-                    }}
-                  />
-                </TableCell>
-              </TableRow>
-            )) : <TableRow><TableCell colSpan={3} align="center" sx={{ py: 4 }}>No Purchase Orders found.</TableCell></TableRow>}
+                <TableRow>
+                  <TableCell colSpan={3} align="center" sx={{ py: 4 }}>
+                    Loading...
+                  </TableCell>
+                </TableRow>
+              ) : orders.length > 0 ? (
+                orders.map((po) => (
+                  <TableRow key={po.id} hover>
+                    <TableCell
+                      sx={{ fontFamily: "monospace", fontWeight: "bold" }}
+                    >
+                      {po.id}
+                    </TableCell>
+                    <TableCell
+                      sx={{ fontFamily: "monospace", fontWeight: "bold" }}
+                    >
+                      #{po.poNumber}
+                    </TableCell>
+                    <TableCell>{po.orderDate}</TableCell>
+                    <TableCell>
+                      <Chip
+                        label={po.status}
+                        size="small"
+                        sx={{
+                          fontWeight: "bold",
+                          borderRadius: "6px",
+                          fontSize: "0.7rem",
+                          bgcolor:
+                            po.status === "COMPLETED" ||
+                            po.status === "APPROVED"
+                              ? "#e8f5e9"
+                              : "#fff3e0",
+                          color:
+                            po.status === "COMPLETED" ||
+                            po.status === "APPROVED"
+                              ? "#2e7d32"
+                              : "#ef6c00",
+                        }}
+                      />
+                    </TableCell>
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={3} align="center" sx={{ py: 4 }}>
+                    No Purchase Orders found.
+                  </TableCell>
+                </TableRow>
+              )}
             </TableBody>
           </Table>
         </Paper>

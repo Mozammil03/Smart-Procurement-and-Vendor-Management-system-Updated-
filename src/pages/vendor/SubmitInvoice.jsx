@@ -55,13 +55,13 @@ export default function SubmitInvoice() {
           <Grid container spacing={3}>
             <Grid item xs={12} sm={4}>
               <TextField
-                fullWidth label="Invoice Number" type="number" required
+                fullWidth label="Purchase Order Id" type="number" required
                 name="poId" value={form.poId} onChange={handleChange}
               />
             </Grid>
             <Grid item xs={12} sm={4}>
               <TextField
-                fullWidth label="Purchase Order ID" required
+                fullWidth label="Invoice Number" required
                 name="invoiceNumber" value={form.invoiceNumber} onChange={handleChange}
               />
             </Grid>
