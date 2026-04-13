@@ -191,7 +191,7 @@ export default function AdminVendorDocuments() {
               documents.map((doc) => (
                 <TableRow key={doc.id} hover>
                   <TableCell>{doc.id || "N/A"}</TableCell>
-                  <TableCell>{doc.vendor?.companyName || "N/A"}</TableCell>
+                  <TableCell>{ doc.vendor?.contactPerson}<br/>{"(" + doc.vendor?.companyName + ")"|| "N/A"}</TableCell>
                   <TableCell>
                     {doc.documentName ||
                       doc.documentNumber ||

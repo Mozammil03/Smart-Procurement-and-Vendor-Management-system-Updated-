@@ -48,7 +48,7 @@ export default function VendorDashboard() {
             SMART <span style={{ color: '#333' }}>VENDOR</span>
           </Typography>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-            <Typography variant="body2">Welcome, <b>Vendor Portal</b><>VendorName</></Typography>
+            <Typography variant="body2">Welcome, <b>Vendor Portal</b></Typography>
             <Avatar sx={{ bgcolor: '#1976d2', width: 32, height: 32 }}>V</Avatar>
           </Box>
         </Toolbar>
