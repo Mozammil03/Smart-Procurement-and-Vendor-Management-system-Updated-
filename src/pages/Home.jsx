@@ -182,7 +182,7 @@ export default function Home() {
       <Typography variant="body2" sx={{ color: "#666", mt: 2 }}>
         A massive shoutout to <strong>Partha</strong>, who architected and designed the vast 
         majority of the platform's interface and frontend logic. Special thanks to 
-        <strong> Ganesh</strong> for his contributions to the design modules and the 
+        <strong> Ganesh</strong> for his contributions to the design modules, thanks to <strong>Mozammil</strong>for working on rating feature and the 
         dedicated presentation team.
       </Typography>
     </CardContent>
