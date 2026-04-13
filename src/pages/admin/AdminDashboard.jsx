@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation, Link, Outlet } from "react-router-dom";
 import api from "../../api/axios";
+import { getUserDisplayName, getUserAvatarInitial } from "../../utils/userUtils";
 
 import {
   Box, Drawer, AppBar, Toolbar, Typography, List, ListItemButton,
@@ -74,6 +75,9 @@ export default function AdminDashboard() {
   const [loading, setLoading] = useState(true);
   const showOverview = location.pathname === "/admin" || location.pathname === "/admin/";
 
+  const displayName = getUserDisplayName();
+  const displayInitial = getUserAvatarInitial(displayName);
+
   const logout = () => { localStorage.clear(); navigate("/"); };
 
   const loadDashboard = async () => {
@@ -114,36 +118,92 @@ export default function AdminDashboard() {
   ];
 
   return (
-    <Box sx={{ display: "flex", bgcolor: "#f4f7f6", minHeight: "100vh" }}>
-      <AppBar position="fixed" elevation={0} sx={{
-        zIndex: (theme) => theme.zIndex.drawer + 1,
-        bgcolor: "white", color: "text.primary", borderBottom: "1px solid #e0e0e0"
-      }}>
-        <Toolbar sx={{ justifyContent: 'space-between' }}>
-          <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#1976d2' }}>
-            SMART <span style={{ color: '#333' }}>PROCURE</span>
+    <Box
+      sx={{
+        display: "flex",
+        bgcolor: "background.default",
+        minHeight: "100vh",
+      }}
+    >
+      <AppBar
+        position="fixed"
+        elevation={0}
+        sx={{
+          zIndex: (theme) => theme.zIndex.drawer + 1,
+          bgcolor: "white",
+          color: "text.primary",
+          borderBottom: "1px solid #e0e0e0",
+        }}
+      >
+        <Toolbar sx={{ justifyContent: "space-between" }}>
+          <Typography
+            variant="h6"
+            sx={{ fontWeight: "bold", color: "secondary.main" }}
+          >
+            SMART <span style={{ color: "#7a6248" }}>PROCURE</span>
           </Typography>
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-            <Typography variant="body2">Welcome, <b>Admin</b></Typography>
-            <Avatar sx={{ bgcolor: '#1976d2', width: 32, height: 32 }}>A</Avatar>
+          <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+            <Typography variant="body2">
+              Welcome, <b>{displayName}</b>
+            </Typography>
+            <Avatar sx={{ bgcolor: "secondary.main", width: 32, height: 32 }}>
+              {displayInitial}
+            </Avatar>
           </Box>
         </Toolbar>
       </AppBar>
 
-      <Drawer variant="permanent" sx={{
-        width: drawerWidth,
-        [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: "border-box", border: 'none', boxShadow: '2px 0 10px rgba(0,0,0,0.05)' },
-      }}>
+      <Drawer
+        variant="permanent"
+        sx={{
+          width: drawerWidth,
+          [`& .MuiDrawer-paper`]: {
+            width: drawerWidth,
+            boxSizing: "border-box",
+            border: "none",
+            boxShadow: "2px 0 10px rgba(0,0,0,0.05)",
+          },
+        }}
+      >
         <Toolbar />
-        <Box sx={{ overflow: "auto", display: 'flex', flexDirection: 'column', height: '100%' }}>
+        <Box
+          sx={{
+            overflow: "auto",
+            display: "flex",
+            flexDirection: "column",
+            height: "100%",
+          }}
+        >
           <List>
-            <Typography variant="overline" sx={{ px: 3, fontWeight: 'bold', color: 'text.secondary' }}>Master Data</Typography>
+            <Typography
+              variant="overline"
+              sx={{ px: 3, fontWeight: "bold", color: "text.secondary" }}
+            >
+              Master Data
+            </Typography>
             {menuItems.map((item) => (
-              <ListItemButton key={item.text} component={Link} to={item.path}
+              <ListItemButton
+                key={item.text}
+                component={Link}
+                to={item.path}
                 selected={location.pathname === item.path}
-                sx={{ mx: 1, borderRadius: 2, mb: 0.5 }}>
-                <ListItemIcon sx={{ minWidth: 40, color: location.pathname === item.path ? '#1976d2' : 'inherit' }}>{item.icon}</ListItemIcon>
-                <ListItemText primary={item.text} primaryTypographyProps={{ fontSize: '0.9rem' }} />
+                sx={{ mx: 1, borderRadius: 2, mb: 0.5 }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 40,
+                    color:
+                      location.pathname === item.path
+                        ? "secondary.main"
+                        : "inherit",
+                  }}
+                >
+                  {item.icon}
+                </ListItemIcon>
+                <ListItemText
+                  primary={item.text}
+                  primaryTypographyProps={{ fontSize: "0.9rem" }}
+                />
               </ListItemButton>
             ))}
           </List>
@@ -151,19 +211,49 @@ export default function AdminDashboard() {
           <Divider sx={{ my: 1, mx: 2 }} />
 
           <List>
-            <Typography variant="overline" sx={{ px: 3, fontWeight: 'bold', color: 'text.secondary' }}>Procurement</Typography>
+            <Typography
+              variant="overline"
+              sx={{ px: 3, fontWeight: "bold", color: "text.secondary" }}
+            >
+              Procurement
+            </Typography>
             {procurementItems.map((item) => (
-              <ListItemButton key={item.text} component={Link} to={item.path}
+              <ListItemButton
+                key={item.text}
+                component={Link}
+                to={item.path}
                 selected={location.pathname === item.path}
-                sx={{ mx: 1, borderRadius: 2, mb: 0.5 }}>
-                <ListItemIcon sx={{ minWidth: 40, color: location.pathname === item.path ? '#1976d2' : 'inherit' }}>{item.icon}</ListItemIcon>
-                <ListItemText primary={item.text} primaryTypographyProps={{ fontSize: '0.9rem' }} />
+                sx={{ mx: 1, borderRadius: 2, mb: 0.5 }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 40,
+                    color:
+                      location.pathname === item.path
+                        ? "secondary.main"
+                        : "inherit",
+                  }}
+                >
+                  {item.icon}
+                </ListItemIcon>
+                <ListItemText
+                  primary={item.text}
+                  primaryTypographyProps={{ fontSize: "0.9rem" }}
+                />
               </ListItemButton>
             ))}
           </List>
 
-          <Box sx={{ mt: 'auto', p: 2 }}>
-            <Button fullWidth variant="outlined" color="error" startIcon={<LogoutIcon />} onClick={logout}>Logout</Button>
+          <Box sx={{ mt: "auto", p: 2 }}>
+            <Button
+              fullWidth
+              variant="outlined"
+              color="error"
+              startIcon={<LogoutIcon />}
+              onClick={logout}
+            >
+              Logout
+            </Button>
           </Box>
         </Box>
       </Drawer>
@@ -174,12 +264,29 @@ export default function AdminDashboard() {
         {showOverview && (
           <>
             {/* Header */}
-            <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 1 }}>
+            <Stack
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
+              sx={{ mb: 1 }}
+            >
               <Box>
-                <Typography variant="h4" sx={{ fontWeight: 900, color: '#1a1a2e' }}>Dashboard Overview</Typography>
-                <Typography variant="body2" color="text.secondary">Live procurement & vendor data</Typography>
+                <Typography
+                  variant="h4"
+                  sx={{ fontWeight: 900, color: "#1a1a2e" }}
+                >
+                  Dashboard Overview
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Live procurement & vendor data
+                </Typography>
               </Box>
-              <Button variant="outlined" startIcon={<RefreshIcon />} onClick={loadDashboard} size="small">
+              <Button
+                variant="outlined"
+                startIcon={<RefreshIcon />}
+                onClick={loadDashboard}
+                size="small"
+              >
                 Refresh
               </Button>
             </Stack>
@@ -189,7 +296,7 @@ export default function AdminDashboard() {
               <StatCard
                 title="Pending Vendor Approvals"
                 value={stats?.pendingVendors ?? "—"}
-                color="#ed6c02"
+                color="secondary.main"
                 icon={<PendingActionsIcon />}
                 subtitle={`${stats?.approvedVendors ?? 0} approved`}
                 loading={loading}
@@ -197,7 +304,7 @@ export default function AdminDashboard() {
               <StatCard
                 title="Active Vendors"
                 value={stats?.approvedVendors ?? "—"}
-                color="#1976d2"
+                color="secondary.main"
                 icon={<StorefrontIcon />}
                 subtitle={`${stats?.totalVendors ?? 0} total`}
                 loading={loading}
@@ -205,7 +312,7 @@ export default function AdminDashboard() {
               <StatCard
                 title="Total Purchase Orders"
                 value={stats?.totalPurchaseOrders ?? "—"}
-                color="#2e7d32"
+                color="#6e5135"
                 icon={<ShoppingCartIcon />}
                 subtitle="All time"
                 loading={loading}
@@ -213,7 +320,7 @@ export default function AdminDashboard() {
               <StatCard
                 title="Low Stock Alerts"
                 value={stats?.lowStockAlerts ?? "—"}
-                color="#d32f2f"
+                color="#9c3c31"
                 icon={<WarningAmberIcon />}
                 subtitle="Items below qty 10"
                 loading={loading}
@@ -222,135 +329,261 @@ export default function AdminDashboard() {
 
             {/* Second row */}
             <Grid container spacing={3} sx={{ mb: 4 }}>
-          <StatCard
-            title="Pending Requisitions"
-            value={stats?.pendingRequisitions ?? "—"}
-            color="#9c27b0"
-            icon={<PendingActionsIcon />}
-            subtitle="Awaiting approval"
-            loading={loading}
-          />
-          <StatCard
-            title="Total Items"
-            value={stats?.totalItems ?? "—"}
-            color="#0288d1"
-            icon={<CategoryIcon />}
-            subtitle="In item master"
-            loading={loading}
-          />
-          <StatCard
-            title="Total Spend"
-            value={stats ? `₹${Number(stats.totalSpend).toLocaleString('en-IN')}` : "—"}
-            color="#00796b"
-            icon={<CurrencyRupeeIcon />}
-            subtitle="From all POs"
-            loading={loading}
-          />
-          <StatCard
-            title="Total Vendors"
-            value={stats?.totalVendors ?? "—"}
-            color="#5c6bc0"
-            icon={<StorefrontIcon />}
-            subtitle="Registered"
-            loading={loading}
-          />
-        </Grid>
+              <StatCard
+                title="Pending Requisitions"
+                value={stats?.pendingRequisitions ?? "—"}
+                color="#9c27b0"
+                icon={<PendingActionsIcon />}
+                subtitle="Awaiting approval"
+                loading={loading}
+              />
+              <StatCard
+                title="Total Items"
+                value={stats?.totalItems ?? "—"}
+                color="#0288d1"
+                icon={<CategoryIcon />}
+                subtitle="In item master"
+                loading={loading}
+              />
+              <StatCard
+                title="Total Spend"
+                value={
+                  stats
+                    ? `₹${Number(stats.totalSpend).toLocaleString("en-IN")}`
+                    : "—"
+                }
+                color="#00796b"
+                icon={<CurrencyRupeeIcon />}
+                subtitle="From all POs"
+                loading={loading}
+              />
+              <StatCard
+                title="Total Vendors"
+                value={stats?.totalVendors ?? "—"}
+                color="#5c6bc0"
+                icon={<StorefrontIcon />}
+                subtitle="Registered"
+                loading={loading}
+              />
+            </Grid>
 
-        {/* Recent POs + Recent Vendors */}
-        <Grid container spacing={3}>
-          <Grid item xs={12} md={7}>
-            <Paper elevation={0} sx={{ borderRadius: 3, border: "1px solid #e0e0e0", overflow: "hidden" }}>
-              <Box sx={{ px: 3, py: 2, borderBottom: "1px solid #eee", display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <Typography variant="h6" sx={{ fontWeight: 'bold' }}>Recent Purchase Orders</Typography>
-                <Button size="small" component={Link} to="/admin/PurchaseOrder">View All</Button>
-              </Box>
-              <Table>
-                <TableHead sx={{ bgcolor: "#1a237e" }}>
-                  <TableRow>
-                    <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>PO Number</TableCell>
-                    <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Vendor</TableCell>
-                    <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Amount</TableCell>
-                    <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Status</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {loading ? (
-                    [1,2,3].map(i => (
-                      <TableRow key={i}>
-                        <TableCell colSpan={4}><Skeleton /></TableCell>
+            {/* Recent POs + Recent Vendors */}
+            <Grid container spacing={3}>
+              <Grid item xs={12} md={7}>
+                <Paper
+                  elevation={0}
+                  sx={{
+                    borderRadius: 3,
+                    border: "1px solid #e0e0e0",
+                    overflow: "hidden",
+                  }}
+                >
+                  <Box
+                    sx={{
+                      px: 3,
+                      py: 2,
+                      borderBottom: "1px solid #eee",
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+                      Recent Purchase Orders
+                    </Typography>
+                    <Button
+                      size="small"
+                      component={Link}
+                      to="/admin/PurchaseOrder"
+                    >
+                      View All
+                    </Button>
+                  </Box>
+                  <Table>
+                    <TableHead sx={{ bgcolor: "secondary.main" }}>
+                      <TableRow>
+                        <TableCell sx={{ color: "white", fontWeight: "bold" }}>
+                          PO Number
+                        </TableCell>
+                        <TableCell sx={{ color: "white", fontWeight: "bold" }}>
+                          Vendor
+                        </TableCell>
+                        <TableCell sx={{ color: "white", fontWeight: "bold" }}>
+                          Amount
+                        </TableCell>
+                        <TableCell sx={{ color: "white", fontWeight: "bold" }}>
+                          Status
+                        </TableCell>
                       </TableRow>
-                    ))
-                  ) : recentPOs.length === 0 ? (
-                    <TableRow><TableCell colSpan={4} align="center" sx={{ py: 3, color: 'text.secondary' }}>No purchase orders yet</TableCell></TableRow>
-                  ) : recentPOs.map(po => (
-                    <TableRow key={po.id} hover>
-                      <TableCell sx={{ fontWeight: 'bold', fontFamily: 'monospace' }}>{po.poNumber}</TableCell>
-                      <TableCell>{po.vendor?.companyName || "—"}</TableCell>
-                      <TableCell sx={{ color: '#1a237e', fontWeight: 'bold' }}>
-                        {po.totalAmount != null ? `₹${Number(po.totalAmount).toLocaleString('en-IN')}` : "—"}
-                      </TableCell>
-                      <TableCell>
-                        <Chip label={po.status || "CREATED"} size="small"
-                          sx={{ bgcolor: "#e8eaf6", color: "#1a237e", fontWeight: 'bold', fontSize: '0.7rem' }} />
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </Paper>
-          </Grid>
+                    </TableHead>
+                    <TableBody>
+                      {loading ? (
+                        [1, 2, 3].map((i) => (
+                          <TableRow key={i}>
+                            <TableCell colSpan={4}>
+                              <Skeleton />
+                            </TableCell>
+                          </TableRow>
+                        ))
+                      ) : recentPOs.length === 0 ? (
+                        <TableRow>
+                          <TableCell
+                            colSpan={4}
+                            align="center"
+                            sx={{ py: 3, color: "text.secondary" }}
+                          >
+                            No purchase orders yet
+                          </TableCell>
+                        </TableRow>
+                      ) : (
+                        recentPOs.map((po) => (
+                          <TableRow key={po.id} hover>
+                            <TableCell
+                              sx={{
+                                fontWeight: "bold",
+                                fontFamily: "monospace",
+                              }}
+                            >
+                              {po.poNumber}
+                            </TableCell>
+                            <TableCell>
+                              {po.vendor?.companyName || "—"}
+                            </TableCell>
+                            <TableCell
+                              sx={{ color: "primary.main", fontWeight: "bold" }}
+                            >
+                              {po.totalAmount != null
+                                ? `₹${Number(po.totalAmount).toLocaleString("en-IN")}`
+                                : "—"}
+                            </TableCell>
+                            <TableCell>
+                              <Chip
+                                label={po.status || "CREATED"}
+                                size="small"
+                                sx={{
+                                  bgcolor: "#e8eaf6",
+                                  color: "primary.main",
+                                  fontWeight: "bold",
+                                  fontSize: "0.7rem",
+                                }}
+                              />
+                            </TableCell>
+                          </TableRow>
+                        ))
+                      )}
+                    </TableBody>
+                  </Table>
+                </Paper>
+              </Grid>
 
-          <Grid item xs={12} md={5}>
-            <Paper elevation={0} sx={{ borderRadius: 3, border: "1px solid #e0e0e0", overflow: "hidden" }}>
-              <Box sx={{ px: 3, py: 2, borderBottom: "1px solid #eee", display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <Typography variant="h6" sx={{ fontWeight: 'bold' }}>Recent Vendors</Typography>
-                <Button size="small" component={Link} to="/admin/VendorApproval">View All</Button>
-              </Box>
-              <Table>
-                <TableHead sx={{ bgcolor: "#1a237e" }}>
-                  <TableRow>
-                    <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Company</TableCell>
-                    <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Status</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {loading ? (
-                    [1,2,3].map(i => (
-                      <TableRow key={i}>
-                        <TableCell colSpan={2}><Skeleton /></TableCell>
+              <Grid item xs={12} md={5}>
+                <Paper
+                  elevation={0}
+                  sx={{
+                    borderRadius: 3,
+                    border: "1px solid #e0e0e0",
+                    overflow: "hidden",
+                  }}
+                >
+                  <Box
+                    sx={{
+                      px: 3,
+                      py: 2,
+                      borderBottom: "1px solid #eee",
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+                      Recent Vendors
+                    </Typography>
+                    <Button
+                      size="small"
+                      component={Link}
+                      to="/admin/VendorApproval"
+                    >
+                      View All
+                    </Button>
+                  </Box>
+                  <Table>
+                    <TableHead sx={{ bgcolor: "secondary.main" }}>
+                      <TableRow>
+                        <TableCell sx={{ color: "white", fontWeight: "bold" }}>
+                          Company
+                        </TableCell>
+                        <TableCell sx={{ color: "white", fontWeight: "bold" }}>
+                          Status
+                        </TableCell>
                       </TableRow>
-                    ))
-                  ) : recentVendors.length === 0 ? (
-                    <TableRow><TableCell colSpan={2} align="center" sx={{ py: 3, color: 'text.secondary' }}>No vendors yet</TableCell></TableRow>
-                  ) : recentVendors.map(v => (
-                    <TableRow key={v.id} hover>
-                      <TableCell>
-                        <Stack direction="row" spacing={1} alignItems="center">
-                          <Avatar sx={{ width: 28, height: 28, bgcolor: '#e8f5e9', color: '#2e7d32', fontSize: '0.75rem' }}>
-                            {v.companyName?.charAt(0)}
-                          </Avatar>
-                          <Typography variant="body2" fontWeight="bold">{v.companyName}</Typography>
-                        </Stack>
-                      </TableCell>
-                      <TableCell>
-                        <Chip
-                          label={v.approved ? "APPROVED" : "PENDING"}
-                          size="small"
-                          sx={{
-                            fontWeight: 'bold', fontSize: '0.65rem', borderRadius: '6px',
-                            bgcolor: v.approved ? "#e8f5e9" : "#fff3e0",
-                            color: v.approved ? "#2e7d32" : "#ef6c00"
-                          }}
-                        />
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </Paper>
-          </Grid>
-        </Grid>
-        </>) }
+                    </TableHead>
+                    <TableBody>
+                      {loading ? (
+                        [1, 2, 3].map((i) => (
+                          <TableRow key={i}>
+                            <TableCell colSpan={2}>
+                              <Skeleton />
+                            </TableCell>
+                          </TableRow>
+                        ))
+                      ) : recentVendors.length === 0 ? (
+                        <TableRow>
+                          <TableCell
+                            colSpan={2}
+                            align="center"
+                            sx={{ py: 3, color: "text.secondary" }}
+                          >
+                            No vendors yet
+                          </TableCell>
+                        </TableRow>
+                      ) : (
+                        recentVendors.map((v) => (
+                          <TableRow key={v.id} hover>
+                            <TableCell>
+                              <Stack
+                                direction="row"
+                                spacing={1}
+                                alignItems="center"
+                              >
+                                <Avatar
+                                  sx={{
+                                    width: 28,
+                                    height: 28,
+                                    bgcolor: "#f3e5cf",
+                                    color: "primary.main",
+                                    fontSize: "0.75rem",
+                                  }}
+                                >
+                                  {v.companyName?.charAt(0)}
+                                </Avatar>
+                                <Typography variant="body2" fontWeight="bold">
+                                  {v.companyName}
+                                </Typography>
+                              </Stack>
+                            </TableCell>
+                            <TableCell>
+                              <Chip
+                                label={v.approved ? "APPROVED" : "PENDING"}
+                                size="small"
+                                sx={{
+                                  fontWeight: "bold",
+                                  fontSize: "0.65rem",
+                                  borderRadius: "6px",
+                                  bgcolor: v.approved ? "#f3e5cf" : "#f7e1ca",
+                                  color: v.approved ? "#6e5135" : "#a87954",
+                                }}
+                              />
+                            </TableCell>
+                          </TableRow>
+                        ))
+                      )}
+                    </TableBody>
+                  </Table>
+                </Paper>
+              </Grid>
+            </Grid>
+          </>
+        )}
         <Outlet />
       </Box>
     </Box>

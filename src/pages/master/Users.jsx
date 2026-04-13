@@ -135,14 +135,14 @@ export default function Users() {
   };
 
   return (
-    <Box sx={{ bgcolor: "#f4f7f6", minHeight: "100vh", py: 4 }}>
+    <Box sx={{ bgcolor: "background.default", minHeight: "100vh", py: 4 }}>
       <Container maxWidth="lg">
         
 {/*         
         <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 4 }}>
           <Box>
-            <Typography variant="h4" sx={{ fontWeight: 800, color: "#333", display: 'flex', alignItems: 'center', gap: 2 }}>
-              <GroupIcon sx={{ fontSize: 40, color: "#2e7d32" }} />
+            <Typography variant="h4" sx={{ fontWeight: 800, color: "text.primary", display: 'flex', alignItems: 'center', gap: 2 }}>
+              <GroupIcon sx={{ fontSize: 40, color: "primary.main" }} />
               User Management
             </Typography>
             <Typography variant="body1" color="text.secondary">Manage employee access, roles, and departmental assignments</Typography>
@@ -164,12 +164,12 @@ export default function Users() {
     alignItems: 'center',
     borderRadius: "12px", 
     border: "1px solid #e0e0e0",
-    background: "linear-gradient(to right, #ffffff, #f8f9fa)", 
-    borderLeft: "6px solid #1565c0" 
+    background: "linear-gradient(to right, rgba(249,243,232,1), rgba(241,226,208,1))", 
+    borderLeft: "6px solid #7a6248" 
   }}
 >
-  <Typography variant="h4" sx={{ fontWeight: 800, color: "#333", display: 'flex', alignItems: 'center', gap: 2 }}>
-              <GroupIcon sx={{ fontSize: 40, color: "#2e7d32" }} />
+  <Typography variant="h4" sx={{ fontWeight: 800, color: "text.primary", display: 'flex', alignItems: 'center', gap: 2 }}>
+              <GroupIcon sx={{ fontSize: 40, color: "primary.main" }} />
               User Management
             </Typography>
             <Typography variant="body1" color="text.secondary">Manage employee access, roles, and departmental assignments</Typography>
@@ -211,7 +211,7 @@ export default function Users() {
           <Grid size={12}>
             <Paper elevation={0} sx={{ borderRadius: 4, border: "1px solid #e0e0e0", overflow: "hidden" }}>
               <Table>
-                <TableHead sx={{ bgcolor: "#fafafa" }}>
+                <TableHead sx={{ bgcolor: "background.paper" }}>
                   <TableRow>
                     <TableCell sx={{ fontWeight: 'bold' }}>USER</TableCell>
                     <TableCell sx={{ fontWeight: 'bold' }}>ROLE</TableCell>
@@ -225,7 +225,7 @@ export default function Users() {
                     <TableRow key={u.id} hover>
                       <TableCell>
                         <Stack direction="row" spacing={2} alignItems="center">
-                          <Avatar sx={{ bgcolor: u.active ? "#2e7d32" : "#bdbdbd", width: 32, height: 32, fontSize: '0.9rem' }}>
+                          <Avatar sx={{ bgcolor: u.active ? "#6e5135" : "#bdbdbd", width: 32, height: 32, fontSize: '0.9rem' }}>
                           
                             {u.username?.[0]?.toUpperCase() || "?"}
                           </Avatar>

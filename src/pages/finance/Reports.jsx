@@ -25,8 +25,8 @@
 //   return (
 //     <Container maxWidth="lg" sx={{ mt: 2 }}>
 //       <Box sx={{ mb: 4 }}>
-//         <Typography variant="h4" sx={{ fontWeight: 800, color: "#333", display: 'flex', alignItems: 'center', gap: 2 }}>
-//           <AssessmentIcon sx={{ fontSize: 40, color: "#1976d2" }} />
+//         <Typography variant="h4" sx={{ fontWeight: 800, color: "text.primary", display: 'flex', alignItems: 'center', gap: 2 }}>
+//           <AssessmentIcon sx={{ fontSize: 40, color: "secondary.main" }} />
 //           Company Spend Report
 //         </Typography>
 //         <Typography variant="body1" color="text.secondary">
@@ -36,7 +36,7 @@
 
 //       <Paper elevation={0} sx={{ borderRadius: "12px", border: "1px solid #e0e0e0", overflow: "hidden", boxShadow: "0 4px 12px rgba(0,0,0,0.05)" }}>
 //         <Table>
-//           <TableHead sx={{ bgcolor: "#fafafa",background:'#1976d2' }}>
+//           <TableHead sx={{ bgcolor: "background.paper",background:'#1976d2' }}>
 //             <TableRow>
 //               <TableCell sx={{ fontWeight: 'bold' }}>PO NUMBER</TableCell>
 //               <TableCell sx={{ fontWeight: 'bold' }}>ORDER DATE</TableCell>
@@ -55,8 +55,8 @@
 //                     label={po.status} size="small"
 //                     sx={{
 //                       fontWeight: 'bold', borderRadius: '6px', fontSize: '0.7rem',
-//                       bgcolor: po.status === "COMPLETED" || po.status === "APPROVED" ? "#e8f5e9" : "#fff3e0",
-//                       color: po.status === "COMPLETED" || po.status === "APPROVED" ? "#2e7d32" : "#ef6c00"
+//                       bgcolor: po.status === "COMPLETED" || po.status === "APPROVED" ? "#f3e5cf" : "#f7e1ca",
+//                       color: po.status === "COMPLETED" || po.status === "APPROVED" ? "#6e5135" : "#a87954"
 //                     }}
 //                   />
 //                 </TableCell>
@@ -130,7 +130,7 @@ export default function Reports() {
       <Box sx={{ mb: 3, display:'flex', justifyContent:'space-between', alignItems:'center' }}>
         <Box>
           <Typography variant="h4" sx={{ fontWeight: 800, display:'flex', alignItems:'center', gap:2 }}>
-            <AssessmentIcon sx={{ fontSize: 40, color: "#1976d2" }} />
+            <AssessmentIcon sx={{ fontSize: 40, color: "secondary.main" }} />
             Spend Report
           </Typography>
         </Box>
@@ -139,7 +139,7 @@ export default function Reports() {
             Export CSV
           </Button>
           <Button variant="contained" startIcon={<DownloadIcon />} onClick={exportPDF}
-            sx={{ bgcolor: "#1976d2" }}>
+            sx={{ bgcolor: "secondary.main" }}>
             Export PDF
           </Button>
         </Stack>
@@ -147,7 +147,7 @@ export default function Reports() {
 
       <Paper elevation={0} sx={{ borderRadius:"12px", border:"1px solid #e0e0e0", overflow:"hidden" }}>
         <Table>
-          <TableHead sx={{ background:'#1976d2' }}>
+          <TableHead sx={{ background:'secondary.main' }}>
             <TableRow>
               <TableCell sx={{ fontWeight:'bold', color:'#fff' }}>PO Number</TableCell>
               <TableCell sx={{ fontWeight:'bold', color:'#fff' }}>Date</TableCell>

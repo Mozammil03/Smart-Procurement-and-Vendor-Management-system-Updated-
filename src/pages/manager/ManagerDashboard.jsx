@@ -76,29 +76,47 @@ export default function ManagerDashboard() {
   ];
 
   return (
-    <Box sx={{ display: "flex", bgcolor: "#f4f7f6", minHeight: "100vh" }}>
-      
-  
-      <AppBar position="fixed" elevation={0} sx={{ 
-        zIndex: (theme) => theme.zIndex.drawer + 1,
-        bgcolor: "white",
-        color: "#333",
-        borderBottom: "1px solid #e0e0e0"
-      }}>
-        <Toolbar sx={{ justifyContent: 'space-between' }}>
-          <Typography variant="h6" sx={{ fontWeight: 800, color: "#1a237e" }}>
-            SMART <span style={{ color: "#555" }}>MANAGER</span>
+    <Box
+      sx={{
+        display: "flex",
+        bgcolor: "background.default",
+        minHeight: "100vh",
+      }}
+    >
+      <AppBar
+        position="fixed"
+        elevation={0}
+        sx={{
+          zIndex: (theme) => theme.zIndex.drawer + 1,
+          bgcolor: "white",
+          color: "text.primary",
+          borderBottom: "1px solid #e0e0e0",
+        }}
+      >
+        <Toolbar sx={{ justifyContent: "space-between" }}>
+          <Typography
+            variant="h6"
+            sx={{ fontWeight: 800, color: "primary.main" }}
+          >
+            SMART <span style={{ color: "#7a6248" }}>MANAGER</span>
           </Typography>
           <Stack direction="row" spacing={2} alignItems="center">
             <NotificationsIcon color="action" />
-            <Divider orientation="vertical" flexItem sx={{ height: 24, my: 'auto' }} />
-            <Typography variant="body2" sx={{ fontWeight: 'bold' }}>Manager Portal</Typography>
-            <Avatar sx={{ bgcolor: "#1a237e", width: 32, height: 32 }}>M</Avatar>
+            <Divider
+              orientation="vertical"
+              flexItem
+              sx={{ height: 24, my: "auto" }}
+            />
+            <Typography variant="body2" sx={{ fontWeight: "bold" }}>
+              Manager Portal
+            </Typography>
+            <Avatar sx={{ bgcolor: "primary.main", width: 32, height: 32 }}>
+              M
+            </Avatar>
           </Stack>
         </Toolbar>
       </AppBar>
 
-      
       <Drawer
         variant="permanent"
         sx={{
@@ -108,33 +126,53 @@ export default function ManagerDashboard() {
             width: drawerWidth,
             boxSizing: "border-box",
             borderRight: "1px solid #e0e0e0",
-            boxShadow: "4px 0 10px rgba(0,0,0,0.02)"
+            boxShadow: "4px 0 10px rgba(0,0,0,0.02)",
           },
         }}
       >
-        <Toolbar /> 
-        <Box sx={{ p: 2, display: 'flex', flexDirection: 'column', height: '100%' }}>
+        <Toolbar />
+        <Box
+          sx={{
+            p: 2,
+            display: "flex",
+            flexDirection: "column",
+            height: "100%",
+          }}
+        >
           <List>
-            <Typography variant="overline" sx={{ px: 2, fontWeight: 'bold', color: 'text.secondary' }}>Main Menu</Typography>
+            <Typography
+              variant="overline"
+              sx={{ px: 2, fontWeight: "bold", color: "text.secondary" }}
+            >
+              Main Menu
+            </Typography>
             {menuItems.map((item) => (
-              <ListItemButton 
-                key={item.text} 
+              <ListItemButton
+                key={item.text}
                 onClick={() => navigate(item.path)}
                 selected={location.pathname === item.path}
-                sx={{ 
-                  borderRadius: 2, 
+                sx={{
+                  borderRadius: 2,
                   mb: 1,
-                  "&.Mui-selected": { bgcolor: "rgba(26, 35, 126, 0.08)", color: "#1a237e" },
-                  "&.Mui-selected .MuiListItemIcon-root": { color: "#1a237e" }
+                  "&.Mui-selected": {
+                    bgcolor: "rgba(26, 35, 126, 0.08)",
+                    color: "primary.main",
+                  },
+                  "&.Mui-selected .MuiListItemIcon-root": {
+                    color: "primary.main",
+                  },
                 }}
               >
                 <ListItemIcon sx={{ minWidth: 40 }}>{item.icon}</ListItemIcon>
-                <ListItemText primary={item.text} primaryTypographyProps={{ fontWeight: 500 }} />
+                <ListItemText
+                  primary={item.text}
+                  primaryTypographyProps={{ fontWeight: 500 }}
+                />
               </ListItemButton>
             ))}
           </List>
 
-          <Box sx={{ mt: 'auto', p: 1 }}>
+          <Box sx={{ mt: "auto", p: 1 }}>
             <Divider sx={{ mb: 2 }} />
             <Button
               variant="outlined"
@@ -142,7 +180,7 @@ export default function ManagerDashboard() {
               fullWidth
               startIcon={<LogoutIcon />}
               onClick={logout}
-              sx={{ borderRadius: 2, fontWeight: 'bold' }}
+              sx={{ borderRadius: 2, fontWeight: "bold" }}
             >
               Logout
             </Button>
@@ -150,60 +188,74 @@ export default function ManagerDashboard() {
         </Box>
       </Drawer>
 
-    
-      <Box component="main" sx={{ flexGrow: 1, p: 4, width: { sm: `calc(100% - ${drawerWidth}px)` } }}>
-        <Toolbar /> 
-        
+      <Box
+        component="main"
+        sx={{
+          flexGrow: 1,
+          p: 4,
+          width: { sm: `calc(100% - ${drawerWidth}px)` },
+        }}
+      >
+        <Toolbar />
+
         <Container maxWidth="lg">
-        
-          <Paper 
-            elevation={0} 
-            sx={{ 
-              p: 4, 
-              mb: 4, 
-              textAlign: 'center', 
-              borderRadius: "16px", 
+          <Paper
+            elevation={0}
+            sx={{
+              p: 4,
+              mb: 4,
+              textAlign: "center",
+              borderRadius: "16px",
               border: "1px solid #e0e0e0",
-              background: "linear-gradient(to right, #ffffff, #f8f9fa)",
-              borderLeft: "8px solid #1a237e" 
+              background:
+                "linear-gradient(to right, rgba(249,243,232,1), rgba(241,226,208,1))",
+              borderLeft: "8px solid",
             }}
           >
-            <Typography variant="h4" sx={{ fontWeight: 800, color: "#1a237e", display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 2 }}>
-              
+            <Typography
+              variant="h4"
+              sx={{
+                fontWeight: 800,
+                color: "primary.main",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: 2,
+              }}
+            >
               Welcome Back {managerName}!
             </Typography>
             <Typography variant="body1" color="text.secondary" sx={{ mt: 1 }}>
               Here is what's happening with your procurement requests today.
             </Typography>
           </Paper>
-            
-        
+
           <Grid container spacing={3}>
-            <StatCard 
-              title="Pending Approvals" 
-              count={pendingCount} 
-              color="#ed6c02" 
+            <StatCard
+              title="Pending Approvals"
+              count={pendingCount}
+              color="secondary.main"
               icon={<PendingActionsIcon sx={{ fontSize: 40, opacity: 0.3 }} />}
             />
-            <StatCard 
-              title="Approved Requests" 
-              count={approvedCount} 
-              color="#2e7d32" 
-              icon={<AssignmentTurnedInIcon sx={{ fontSize: 40, opacity: 0.3 }} />}
+            <StatCard
+              title="Approved Requests"
+              count={approvedCount}
+              color="#6e5135"
+              icon={
+                <AssignmentTurnedInIcon sx={{ fontSize: 40, opacity: 0.3 }} />
+              }
             />
-            <StatCard 
-              title="Purchase Orders" 
-              count={poCount} 
-              color="#1a237e" 
+            <StatCard
+              title="Purchase Orders"
+              count={poCount}
+              color="primary.main"
               icon={<DashboardIcon sx={{ fontSize: 40, opacity: 0.3 }} />}
             />
           </Grid>
 
-        
           <Box sx={{ mt: 4 }}>
             <Outlet />
           </Box>
-
         </Container>
       </Box>
     </Box>
@@ -228,7 +280,7 @@ function StatCard({ title, count, color, icon }) {
               <Typography variant="subtitle2" sx={{ fontWeight: 'bold', color: 'text.secondary', textTransform: 'uppercase' }}>
                 {title}
               </Typography>
-              <Typography variant="h3" sx={{ fontWeight: 800, mt: 1, color: "#333" }}>
+              <Typography variant="h3" sx={{ fontWeight: 800, mt: 1, color: "text.primary" }}>
                 {count}
               </Typography>
             </Box>

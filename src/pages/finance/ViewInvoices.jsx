@@ -64,8 +64,8 @@ export default function ViewInvoices() {
     <Container maxWidth="lg" sx={{ mt: 2 }}>
       <Box sx={{ mb: 4, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <Box>
-          <Typography variant="h4" sx={{ fontWeight: 800, color: "#333", display: 'flex', alignItems: 'center', gap: 2 }}>
-            <ReceiptIcon sx={{ fontSize: 40, color: "#1976d2" }} />
+          <Typography variant="h4" sx={{ fontWeight: 800, color: "text.primary", display: 'flex', alignItems: 'center', gap: 2 }}>
+            <ReceiptIcon sx={{ fontSize: 40, color: "secondary.main" }} />
             Invoices
           </Typography>
           <Typography variant="body1" color="text.secondary">
@@ -78,13 +78,13 @@ export default function ViewInvoices() {
             value={invoiceId} onChange={e => setInvoiceId(e.target.value)}
             InputProps={{ startAdornment: <InputAdornment position="start"><SearchIcon fontSize="small" /></InputAdornment> }}
           />
-          <Button variant="contained" onClick={searchInvoice} sx={{ bgcolor: "#1976d2", minWidth: '100px' }}>SEARCH</Button>
+          <Button variant="contained" onClick={searchInvoice} sx={{ bgcolor: "secondary.main", minWidth: '100px' }}>SEARCH</Button>
         </Stack>
       </Box>
 
       <Paper elevation={0} sx={{ borderRadius: "12px", border: "1px solid #e0e0e0", overflow: "hidden", boxShadow: "0 4px 12px rgba(0,0,0,0.05)" }}>
         <Table>
-          <TableHead sx={{ bgcolor: "#fafafa",background:'#1976d2' }}>
+          <TableHead sx={{ bgcolor: "secondary.main" }}>
             <TableRow>
               <TableCell sx={{ fontWeight: 'bold' }}>INVOICE ID</TableCell>
               <TableCell sx={{ fontWeight: 'bold' }}>VENDOR</TableCell>

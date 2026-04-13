@@ -66,6 +66,40 @@ export default function Login() {
       const normalizedRole = (res.data.role || "").replace(/^ROLE_/, "").toUpperCase();
       localStorage.setItem("role", normalizedRole);
       localStorage.setItem("userId", String(loginId));
+      const explicitName =
+        res.data.name ||
+        res.data.username ||
+        res.data.userName ||
+        res.data.email ||
+        res.data.firstName ||
+        res.data.lastName;
+
+      const saveDisplayName = (name) => {
+        if (name) {
+          localStorage.setItem("displayName", name);
+        } else {
+          localStorage.removeItem("displayName");
+        }
+      };
+
+      if (explicitName) {
+        saveDisplayName(explicitName);
+      } else {
+        try {
+          const profile = await API.get(`/users/${loginId}`);
+          saveDisplayName(
+            profile.data.name ||
+              profile.data.username ||
+              profile.data.userName ||
+              profile.data.email ||
+              profile.data.firstName ||
+              profile.data.lastName
+          );
+        } catch (err) {
+          saveDisplayName(null);
+        }
+      }
+
       const role = normalizedRole;
 
       if (role === "VENDOR") {
@@ -95,37 +129,43 @@ export default function Login() {
   return (
     <Box
       sx={{
-        height: "100vh",
+        minHeight: "100vh",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "#f4f7f6",
+        px: 2,
+        py: 6,
+        bgcolor: "background.default",
       }}
     >
       <Paper
         elevation={10}
         sx={{
           padding: 4,
-          width: 350,
+          width: 360,
+          maxWidth: "100%",
           textAlign: "center",
           borderRadius: 3,
-          borderTop: "6px solid #1976d2",
+          borderTop: "6px solid",
+          borderTopColor: "primary.main",
+          bgcolor: "background.paper",
         }}
       >
         <Typography variant="h4"
-        sx={{ 
-            mb: 1, 
-            fontWeight: "bold", 
-            color: "#1976d2",
-            letterSpacing: 1 
-          }}>
+          sx={{
+            mb: 1,
+            fontWeight: "bold",
+            color: "text.primary",
+            letterSpacing: 1,
+          }}
+        >
           LOGIN
         </Typography>
         <Typography variant="body2" sx={{ mb: 4, color: "text.secondary" }}>
           Smart Procurement & Vendor Management
         </Typography>
 
-        <Typography sx={{ mb: 2 }}>
+        <Typography sx={{ mb: 2, color: "text.primary" }}>
           Welcome user, please sign in to continue
         </Typography>
 
@@ -140,7 +180,7 @@ export default function Login() {
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                <EmailIcon color="primary"/>
+                <EmailIcon color="secondary" />
               </InputAdornment>
             ),
           }}
@@ -157,16 +197,12 @@ export default function Login() {
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                <LockIcon color="primary"/>
+                <LockIcon color="secondary" />
               </InputAdornment>
             ),
-            
             endAdornment: (
-
               <InputAdornment position="end">
-                <IconButton
-                  onClick={() => setShowPassword(!showPassword)}
-                >
+                <IconButton onClick={() => setShowPassword(!showPassword)}>
                   {showPassword ? <VisibilityOff /> : <Visibility />}
                 </IconButton>
               </InputAdornment>
@@ -177,30 +213,29 @@ export default function Login() {
         <Button
           fullWidth
           variant="contained"
+          color="secondary"
           size="large"
-          sx={{ 
-            mt: 4, 
-            mb: 2, 
+          sx={{
+            mt: 4,
+            mb: 2,
             py: 1.5,
             fontWeight: "bold",
-            borderRadius: 2,
-            boxShadow: "0 4px 12px rgba(25, 118, 210, 0.3)"}}
-      
+          }}
           onClick={handleLogin}
         >
           LOG IN
         </Button>
 
         <Typography sx={{ mt: 2, color: "text.secondary" }}>
-         New to the platform?{" "}
+          New to the platform?{' '}
           <Typography
             component="span"
             variant="body2"
-            sx={{ 
-              color: "#1976d2", 
-              cursor: "pointer", 
+            sx={{
+              color: "primary.main",
+              cursor: "pointer",
               fontWeight: "bold",
-              "&:hover": { textDecoration: "underline" } 
+              '&:hover': { textDecoration: 'underline' },
             }}
             onClick={() => navigate("/pages/vendor-register/VendorRegister")}
           >
@@ -212,15 +247,10 @@ export default function Login() {
       <Snackbar
         open={snackbar.open}
         autoHideDuration={3000}
-        onClose={() =>
-          setSnackbar((prev) => ({ ...prev, open: false }))
-        }
+        onClose={() => setSnackbar((prev) => ({ ...prev, open: false }))}
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
-
       >
-        <Alert severity={snackbar.severity}>
-          {snackbar.message}
-        </Alert>
+        <Alert severity={snackbar.severity}>{snackbar.message}</Alert>
       </Snackbar>
     </Box>
   );

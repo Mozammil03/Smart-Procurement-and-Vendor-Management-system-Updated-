@@ -98,17 +98,17 @@ export default function MyRequisitions() {
   ];
 
   return (
-    <Box sx={{ display: "flex", bgcolor: "#f8f9fa", minHeight: "100vh" }}>
+    <Box sx={{ display: "flex", bgcolor: "background.paper", minHeight: "100vh" }}>
       
   
       <Drawer variant="permanent" sx={{ width: drawerWidth, flexShrink: 0, [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: "border-box", borderRight: "1px solid #eee" } }}>
         <Box sx={{ p: 4, textAlign: 'center' }}>
-          <Typography variant="h5" sx={{ fontWeight: 900, color: "#1976d2" }}>SMART <span style={{ color: "#333" }}>EMP</span></Typography>
+          <Typography variant="h5" sx={{ fontWeight: 900, color: "secondary.main" }}>SMART <span style={{ color: "text.primary" }}>EMP</span></Typography>
         </Box>
         <Divider variant="middle" sx={{ mb: 2 }} />
         <List sx={{ px: 2, flexGrow: 1 }}>
           {menuItems.map((item) => (
-            <ListItemButton key={item.text} onClick={() => navigate(item.path)} selected={location.pathname === item.path} sx={{ borderRadius: "8px", mb: 1, py: 1.5, "&.Mui-selected": { bgcolor: "rgba(25, 118, 210, 0.08)", color: "#1a237e" } }}>
+            <ListItemButton key={item.text} onClick={() => navigate(item.path)} selected={location.pathname === item.path} sx={{ borderRadius: "8px", mb: 1, py: 1.5, "&.Mui-selected": { bgcolor: "rgba(179, 143, 92, 0.16)", color: "primary.main" } }}>
               <ListItemIcon sx={{ minWidth: 45 }}>{item.icon}</ListItemIcon>
               <ListItemText primary={item.text} primaryTypographyProps={{ fontWeight: 700, fontSize: '0.85rem' }} />
             </ListItemButton>
@@ -122,14 +122,14 @@ export default function MyRequisitions() {
         <Container maxWidth="lg">
           
       
-          <Card elevation={0} sx={{ mb: 4, borderRadius: "16px", border: "1px solid #e0e0e0", borderTop: "6px solid #1976d2" }}>
+          <Card elevation={0} sx={{ mb: 4, borderRadius: "16px", border: "1px solid #e0e0e0", borderTop: "6px solid" }}>
             <CardContent sx={{ p: 4 }}>
               <Stack direction="row" spacing={3} alignItems="center">
-                <Avatar sx={{ bgcolor: "rgba(25, 118, 210, 0.1)", color: "#1976d2", width: 60, height: 60 }}>
+                <Avatar sx={{ bgcolor: "rgba(179, 143, 92, 0.16)", color: "secondary.main", width: 60, height: 60 }}>
                   <HistoryEduIcon sx={{ fontSize: 35 }} />
                 </Avatar>
                 <Box>
-                  <Typography variant="h4" sx={{ fontWeight: 900, color: "#333" }}>My Requisitions</Typography>
+                  <Typography variant="h4" sx={{ fontWeight: 900, color: "text.primary" }}>My Requisitions</Typography>
                   <Typography variant="body1" color="text.secondary">Review and manage your submitted supply requests.</Typography>
                 </Box>
               </Stack>
@@ -141,7 +141,7 @@ export default function MyRequisitions() {
             <Stack direction="row" spacing={2}>
               <TextField fullWidth placeholder="Search by Requisition ID..." size="small" value={searchId} onChange={e => setSearchId(e.target.value)}
                 InputProps={{ startAdornment: <InputAdornment position="start"><SearchIcon fontSize="small" /></InputAdornment> }} />
-              <Button variant="contained" onClick={search} sx={{ bgcolor: "#1976d2", px: 4 }}>SEARCH</Button>
+              <Button variant="contained" onClick={search} sx={{ bgcolor: "secondary.main", px: 4 }}>SEARCH</Button>
               <IconButton onClick={load} sx={{ border: "1px solid #ccc", borderRadius: "4px" }}><RestartAltIcon /></IconButton>
             </Stack>
           </Paper>
@@ -149,7 +149,7 @@ export default function MyRequisitions() {
       
           <Paper elevation={0} sx={{ borderRadius: "12px", border: "1px solid #e0e0e0", overflow: "hidden" }}>
             <Table>
-              <TableHead sx={{ bgcolor: "#1976d2", "& .MuiTableCell-head": { color: "white", fontWeight: "bold", borderRight: "1px solid rgba(255,255,255,0.2)" } }}>
+              <TableHead sx={{ bgcolor: "secondary.main", "& .MuiTableCell-head": { color: "white", fontWeight: "bold", borderRight: "1px solid rgba(255,255,255,0.2)" } }}>
                 <TableRow>
                   <TableCell>ID</TableCell>
                   <TableCell>Item Name</TableCell>
@@ -161,18 +161,18 @@ export default function MyRequisitions() {
               <TableBody>
                 {data.length > 0 ? data.map((r) => (
                   <TableRow key={r.id} hover>
-                    <TableCell sx={{ borderRight: "1px solid #eee", color: "#666" }}>#{r.id}</TableCell>
+                    <TableCell sx={{ borderRight: "1px solid #eee", color: "text.secondary" }}>#{r.id}</TableCell>
                     <TableCell sx={{ borderRight: "1px solid #eee", fontWeight: 700 }}>{r.item?.itemName}</TableCell>
                     <TableCell sx={{ borderRight: "1px solid #eee" }}>{r.quantity}</TableCell>
                     <TableCell sx={{ borderRight: "1px solid #eee" }}>
                       <Chip label={r.status} size="small" sx={{ 
                         fontWeight: 800, fontSize: '0.7rem', borderRadius: '6px',
-                        bgcolor: r.status === "PENDING" ? "#fff3e0" : r.status === "APPROVED" ? "#e8f5e9" : "#ffebee",
-                        color: r.status === "PENDING" ? "#ef6c00" : r.status === "APPROVED" ? "#2e7d32" : "#d32f2f"
+                        bgcolor: r.status === "PENDING" ? "#f7e1ca" : r.status === "APPROVED" ? "#f3e5cf" : "#f6e2d7",
+                        color: r.status === "PENDING" ? "#a87954" : r.status === "APPROVED" ? "#6e5135" : "#9c3c31"
                       }} />
                     </TableCell>
                     <TableCell align="center">
-                      <Button variant="contained" size="small" startIcon={<VisibilityIcon fontSize="inherit"/>} onClick={() => viewById(r.id)} sx={{ bgcolor: '#1976d2', fontSize: '0.7rem' }}>
+                      <Button variant="contained" size="small" startIcon={<VisibilityIcon fontSize="inherit"/>} onClick={() => viewById(r.id)} sx={{ bgcolor: "secondary.main", fontSize: '0.7rem' }}>
                         VIEW
                       </Button>
                     </TableCell>
@@ -188,7 +188,7 @@ export default function MyRequisitions() {
 
       
       <Dialog open={open} onClose={() => setOpen(false)} fullWidth maxWidth="sm">
-        <DialogTitle sx={{ fontWeight: 'bold', bgcolor: '#f8f9fa' }}>
+        <DialogTitle sx={{ fontWeight: 'bold', bgcolor: "background.paper" }}>
           {edit ? "Edit Requisition" : "Requisition Details"}
         </DialogTitle>
         <DialogContent dividers>
@@ -215,7 +215,7 @@ export default function MyRequisitions() {
             </Stack>
           )}
         </DialogContent>
-        <DialogActions sx={{ p: 2, bgcolor: '#f8f9fa' }}>
+        <DialogActions sx={{ p: 2, bgcolor: "background.paper" }}>
           <Button onClick={() => setOpen(false)} color="inherit">Close</Button>
           {edit ? (
             <Button onClick={updateReq} variant="contained" color="primary">Save Changes</Button>

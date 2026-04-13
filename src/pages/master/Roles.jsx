@@ -85,14 +85,14 @@ export default function Roles() {
 
   const getRoleColor = (name) => {
     const role = name.toUpperCase();
-    if (role.includes("ADMIN")) return { bg: "#ffebee", text: "#d32f2f", border: "#ef9a9a" };
-    if (role.includes("MANAGER")) return { bg: "#fff3e0", text: "#ef6c00", border: "#ffe0b2" };
-    if (role.includes("VENDOR")) return { bg: "#e8f5e9", text: "#2e7d32", border: "#c8e6c9" };
+    if (role.includes("ADMIN")) return { bg: "#f6e2d7", text: "#9c3c31", border: "#ef9a9a" };
+    if (role.includes("MANAGER")) return { bg: "#f7e1ca", text: "#a87954", border: "#ffe0b2" };
+    if (role.includes("VENDOR")) return { bg: "#f3e5cf", text: "#6e5135", border: "#c8e6c9" };
     return { bg: "#f5f5f5", text: "#616161", border: "#e0e0e0" };
   };
 
   return (
-    <Box sx={{ bgcolor: "#f4f7f6", minHeight: "100vh", py: 4 }}>
+    <Box sx={{ bgcolor: "background.default", minHeight: "100vh", py: 4 }}>
       <Container maxWidth="lg"> 
         
 
@@ -105,8 +105,8 @@ export default function Roles() {
     textAlign: 'center', 
     borderRadius: "16px", 
     border: "1px solid #e0e0e0",
-    background: "linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)",
-    borderLeft: "8px solid #1565c0", 
+    background: "linear-gradient(135deg, rgba(249,243,232,1) 0%, rgba(241,226,208,1) 100%)",
+    borderLeft: "8px solid #7a6248", 
     position: 'relative',
     overflow: 'hidden'
   }}
@@ -115,7 +115,7 @@ export default function Roles() {
     variant="h4" 
     sx={{ 
       fontWeight: 800, 
-      color: "#1a237e", 
+      color: "primary.main", 
       display: 'inline-flex', 
       alignItems: 'center', 
       gap: 2,
@@ -123,7 +123,7 @@ export default function Roles() {
       zIndex: 1
     }}
   >
-    <SecurityIcon sx={{ fontSize: 45, color: "#1565c0" }} />
+    <SecurityIcon sx={{ fontSize: 45, color: "#7a6248" }} />
     Roles Management
   </Typography>
   <Typography variant="body1" color="text.secondary" sx={{ mt: 1, fontWeight: 500 }}>
@@ -174,7 +174,7 @@ export default function Roles() {
           <Grid item xs={12} md={8}>
             <Paper elevation={0} sx={{ borderRadius: 4, border: "1px solid #e0e0e0", overflow: "hidden" }}>
               <Table>
-                <TableHead sx={{ bgcolor: "#fafafa" }}>
+                <TableHead sx={{ bgcolor: "background.paper" }}>
                   <TableRow>
                     <TableCell sx={{ fontWeight: 'bold' }}>ID</TableCell>
                     <TableCell sx={{ fontWeight: 'bold' }}>ROLE</TableCell>
@@ -225,7 +225,7 @@ export default function Roles() {
       </Dialog>
 
       <Dialog open={openDelete} onClose={() => setOpenDelete(false)}>
-        <DialogTitle sx={{ color: '#d32f2f', fontWeight: 'bold' }}>Confirm Deletion</DialogTitle>
+        <DialogTitle sx={{ color: '#9c3c31', fontWeight: 'bold' }}>Confirm Deletion</DialogTitle>
         <DialogContent>
           <DialogContentText>Are you sure you want to delete <b>{selectedRole.roleName}</b>? This action cannot be undone.</DialogContentText>
         </DialogContent>

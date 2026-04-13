@@ -69,8 +69,8 @@ export default function UploadDocuments() {
   return (
     <Container maxWidth="md" sx={{ mt: 2 }}>
       <Box sx={{ mb: 4, textAlign: 'center' }}>
-        <Typography variant="h4" sx={{ fontWeight: 800, color: "#333", display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 2 }}>
-          <FileUploadIcon sx={{ fontSize: 40, color: "#1976d2" }} />
+        <Typography variant="h4" sx={{ fontWeight: 800, color: "text.primary", display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 2 }}>
+          <FileUploadIcon sx={{ fontSize: 40, color: "secondary.main" }} />
           Upload Documents
         </Typography>
         <Typography variant="body1" color="text.secondary">
@@ -100,7 +100,7 @@ export default function UploadDocuments() {
               />
             </Grid>
             <Grid item xs={12}>
-              <Button fullWidth variant="contained" type="submit" size="large" sx={{ bgcolor: "#1976d2", fontWeight: 'bold', mt: 2 }}>
+              <Button fullWidth variant="contained" type="submit" size="large" sx={{ bgcolor: "secondary.main", fontWeight: 'bold', mt: 2 }}>
                 UPLOAD
               </Button>
             </Grid>
@@ -108,12 +108,12 @@ export default function UploadDocuments() {
         </form>
       </Paper>
 
-      <Paper elevation={0} sx={{ mt: 4, p: 3, borderRadius: "12px", border: "1px solid #e0e0e0", background: "#fff" }}>
-        <Typography variant="h6" sx={{ mb: 2, fontWeight: 700, color: "#1a237e" }}>
+      <Paper elevation={0} sx={{ mt: 4, p: 3, borderRadius: "12px", border: "1px solid #e0e0e0", background: "background.paper" }}>
+        <Typography variant="h6" sx={{ mb: 2, fontWeight: 700, color: "primary.main" }}>
           Uploaded Documents
         </Typography>
         <Table>
-          <TableHead sx={{ background: "#1976d2" }}>
+          <TableHead sx={{ background: "secondary.main" }}>
             <TableRow>
               <TableCell sx={{ color: "#fff", fontWeight: "bold" }}>Document Name</TableCell>
               <TableCell sx={{ color: "#fff", fontWeight: "bold" }}>Document Number</TableCell>
@@ -135,8 +135,8 @@ export default function UploadDocuments() {
                       label={doc.status || "PENDING"}
                       size="small"
                       sx={{
-                        bgcolor: doc.status === "ACCEPTED" ? "#e8f5e9" : doc.status === "REJECTED" ? "#ffe8e8" : "#e3f2fd",
-                        color: doc.status === "ACCEPTED" ? "#2e7d32" : doc.status === "REJECTED" ? "#c62828" : "#1565c0",
+                        bgcolor: doc.status === "ACCEPTED" ? "#f3e5cf" : doc.status === "REJECTED" ? "#ffe8e8" : "#f4e5d0",
+                        color: doc.status === "ACCEPTED" ? "#6e5135" : doc.status === "REJECTED" ? "#8f3b32" : "#7a6248",
                         fontWeight: 'bold',
                       }}
                     />

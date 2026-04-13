@@ -81,10 +81,14 @@ export default function CreateRequisition() {
   ];
 
   return (
-    <Box sx={{ display: "flex", bgcolor: "#f4f7f6", minHeight: "100vh" }}>
-      
-
-       {/* <Drawer
+    <Box
+      sx={{
+        display: "flex",
+        bgcolor: "background.default",
+        minHeight: "100vh",
+      }}
+    >
+      {/* <Drawer
         variant="permanent"
         sx={{
           width: drawerWidth,
@@ -98,8 +102,8 @@ export default function CreateRequisition() {
         }}
       >
         <Box sx={{ p: 3, textAlign: 'center' }}>
-          <Typography variant="h6" sx={{ fontWeight: 800, color: "#1976d2", mb: 1 }}>
-            SMART <span style={{ color: "#333" }}>EMP</span>
+          <Typography variant="h6" sx={{ fontWeight: 800, color: "secondary.main", mb: 1 }}>
+            SMART <span style={{ color: "text.primary" }}>EMP</span>
           </Typography>
           <Divider sx={{ mb: 3 }} />
           
@@ -112,8 +116,8 @@ export default function CreateRequisition() {
                 sx={{ 
                   borderRadius: 2, 
                   mb: 1,
-                  "&.Mui-selected": { bgcolor: "rgba(25(118,210, 0.08)", color: "#1976d2" },
-                  "&.Mui-selected .MuiListItemIcon-root": { color: "#1976d2" }
+                  "&.Mui-selected": { bgcolor: "rgba(25(118,210, 0.08)", color: "secondary.main" },
+                  "&.Mui-selected .MuiListItemIcon-root": { color: "secondary.main" }
                 }}
               >
                 <ListItemIcon sx={{ minWidth: 40 }}>{item.icon}</ListItemIcon>
@@ -135,41 +139,100 @@ export default function CreateRequisition() {
         </Box>
       </Drawer> */}
 
+      <Drawer
+        variant="permanent"
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          [`& .MuiDrawer-paper`]: {
+            width: drawerWidth,
+            boxSizing: "border-box",
+            borderRight: "1px solid #eee",
+          },
+        }}
+      >
+        <Box sx={{ p: 4, textAlign: "center" }}>
+          <Typography
+            variant="h5"
+            sx={{ fontWeight: 900, color: "secondary.main" }}
+          >
+            SMART <span style={{ color: "#7a6248" }}>EMP</span>
+          </Typography>
+        </Box>
+        <Divider variant="middle" sx={{ mb: 2 }} />
+        <List sx={{ px: 2, flexGrow: 1 }}>
+          {menuItems.map((item) => (
+            <ListItemButton
+              key={item.text}
+              onClick={() => navigate(item.path)}
+              selected={location.pathname === item.path}
+              sx={{
+                borderRadius: "8px",
+                mb: 1,
+                py: 1.5,
+                "&.Mui-selected": {
+                  bgcolor: "rgba(179, 143, 92, 0.16)",
+                  color: "primary.main",
+                },
+              }}
+            >
+              <ListItemIcon sx={{ minWidth: 45 }}>{item.icon}</ListItemIcon>
+              <ListItemText
+                primary={item.text}
+                primaryTypographyProps={{
+                  fontWeight: 700,
+                  fontSize: "0.85rem",
+                }}
+              />
+            </ListItemButton>
+          ))}
+        </List>
+        <Box sx={{ p: 3 }}>
+          <Button
+            fullWidth
+            variant="outlined"
+            color="error"
+            startIcon={<LogoutIcon />}
+            onClick={() => {
+              localStorage.clear();
+              navigate("/");
+            }}
+            sx={{ borderRadius: "8px", fontWeight: 800 }}
+          >
+            LOGOUT
+          </Button>
+        </Box>
+      </Drawer>
 
-      <Drawer variant="permanent" sx={{ width: drawerWidth, flexShrink: 0, [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: "border-box", borderRight: "1px solid #eee" } }}>
-              <Box sx={{ p: 4, textAlign: 'center' }}>
-                <Typography variant="h5" sx={{ fontWeight: 900, color: "#1976d2" }}>SMART <span style={{ color: "#333" }}>EMP</span></Typography>
-              </Box>
-              <Divider variant="middle" sx={{ mb: 2 }} />
-              <List sx={{ px: 2, flexGrow: 1 }}>
-                {menuItems.map((item) => (
-                  <ListItemButton key={item.text} onClick={() => navigate(item.path)} selected={location.pathname === item.path} sx={{ borderRadius: "8px", mb: 1, py: 1.5, "&.Mui-selected": { bgcolor: "rgba(25, 118, 210, 0.08)", color: "#1a237e" } }}>
-                    <ListItemIcon sx={{ minWidth: 45 }}>{item.icon}</ListItemIcon>
-                    <ListItemText primary={item.text} primaryTypographyProps={{ fontWeight: 700, fontSize: '0.85rem' }} />
-                  </ListItemButton>
-                ))}
-              </List>
-              <Box sx={{ p: 3 }}><Button fullWidth variant="outlined" color="error" startIcon={<LogoutIcon />} onClick={() => { localStorage.clear(); navigate("/"); }} sx={{ borderRadius: "8px", fontWeight: 800 }}>LOGOUT</Button></Box>
-            </Drawer>
-      
-
-    
       <Box component="main" sx={{ flexGrow: 1, p: 4 }}>
         <Container maxWidth="md">
-          
-          <Card elevation={0} sx={{ 
-            mb: 4, 
-            borderRadius: 4, 
-            border: "1px solid #e0e0e0", 
-            borderTop: "6px solid #1976d2",
-            textAlign: 'center'
-          }}>
+          <Card
+            elevation={0}
+            sx={{
+              mb: 4,
+              borderRadius: 4,
+              border: "1px solid #e0e0e0",
+              borderTop: "6px solid",
+              textAlign: "center",
+            }}
+          >
             <CardContent sx={{ py: 3 }}>
               <Stack alignItems="center" spacing={1}>
-                <Avatar sx={{ bgcolor: "rgba(25, 118, 210, 0.1)", color: "#1976d2", width: 56, height: 56, mb: 1 }}>
+                <Avatar
+                  sx={{
+                    bgcolor: "rgba(179, 143, 92, 0.16)",
+                    color: "secondary.main",
+                    width: 56,
+                    height: 56,
+                    mb: 1,
+                  }}
+                >
                   <AddCircleOutlineIcon sx={{ fontSize: 35 }} />
                 </Avatar>
-                <Typography variant="h5" sx={{ fontWeight: 800, color: "#333" }}>
+                <Typography
+                  variant="h5"
+                  sx={{ fontWeight: 800, color: "text.primary" }}
+                >
                   Create New Requisition
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
@@ -179,7 +242,15 @@ export default function CreateRequisition() {
             </CardContent>
           </Card>
 
-          <Paper elevation={0} sx={{ p: 4, borderRadius: 3, border: "1px solid #e0e0e0", boxShadow: "0 4px 12px rgba(0,0,0,0.05)" }}>
+          <Paper
+            elevation={0}
+            sx={{
+              p: 4,
+              borderRadius: 3,
+              border: "1px solid #e0e0e0",
+              boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
+            }}
+          >
             <Stack spacing={3}>
               <FormControl fullWidth>
                 <InputLabel>Select Item</InputLabel>
@@ -187,9 +258,17 @@ export default function CreateRequisition() {
                   value={form.itemId}
                   label="Select Item"
                   onChange={(e) => setForm({ ...form, itemId: e.target.value })}
-                  startAdornment={<InputAdornment position="start"><InventoryIcon color="action" sx={{ mr: 1 }} /></InputAdornment>}
+                  startAdornment={
+                    <InputAdornment position="start">
+                      <InventoryIcon color="action" sx={{ mr: 1 }} />
+                    </InputAdornment>
+                  }
                 >
-                  {items.map((i) => <MenuItem key={i.id} value={i.id}>{i.itemName}</MenuItem>)}
+                  {items.map((i) => (
+                    <MenuItem key={i.id} value={i.id}>
+                      {i.itemName}
+                    </MenuItem>
+                  ))}
                 </Select>
               </FormControl>
 
@@ -199,7 +278,13 @@ export default function CreateRequisition() {
                 fullWidth
                 value={form.quantity}
                 onChange={(e) => setForm({ ...form, quantity: e.target.value })}
-                InputProps={{ startAdornment: <InputAdornment position="start"><NumbersIcon color="action" /></InputAdornment> }}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <NumbersIcon color="action" />
+                    </InputAdornment>
+                  ),
+                }}
               />
 
               <TextField
@@ -209,7 +294,16 @@ export default function CreateRequisition() {
                 fullWidth
                 value={form.reason}
                 onChange={(e) => setForm({ ...form, reason: e.target.value })}
-                InputProps={{ startAdornment: <InputAdornment position="start" sx={{ alignSelf: 'flex-start', mt: 1.5 }}><DescriptionIcon color="action" /></InputAdornment> }}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment
+                      position="start"
+                      sx={{ alignSelf: "flex-start", mt: 1.5 }}
+                    >
+                      <DescriptionIcon color="action" />
+                    </InputAdornment>
+                  ),
+                }}
               />
 
               <Button
@@ -218,7 +312,12 @@ export default function CreateRequisition() {
                 fullWidth
                 onClick={submit}
                 startIcon={<SendIcon />}
-                sx={{ bgcolor: "#1976d2", py: 1.5, fontWeight: 'bold', borderRadius: 2 }}
+                sx={{
+                  bgcolor: "secondary.main",
+                  py: 1.5,
+                  fontWeight: "bold",
+                  borderRadius: 2,
+                }}
               >
                 SUBMIT REQUISITION
               </Button>
@@ -226,8 +325,15 @@ export default function CreateRequisition() {
           </Paper>
         </Container>
 
-        <Snackbar open={snackbar.open} autoHideDuration={4000} onClose={() => setSnackbar({ ...snackbar, open: false })} anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
-          <Alert severity={snackbar.severity} variant="filled">{snackbar.message}</Alert>
+        <Snackbar
+          open={snackbar.open}
+          autoHideDuration={4000}
+          onClose={() => setSnackbar({ ...snackbar, open: false })}
+          anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+        >
+          <Alert severity={snackbar.severity} variant="filled">
+            {snackbar.message}
+          </Alert>
         </Snackbar>
       </Box>
     </Box>

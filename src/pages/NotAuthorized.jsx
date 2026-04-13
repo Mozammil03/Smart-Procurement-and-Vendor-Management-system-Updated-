@@ -7,7 +7,7 @@ export default function NotAuthorized() {
   const navigate = useNavigate();
 
   return (
-    <Box sx={{ bgcolor: "#f4f7f6", minHeight: "100vh", py: 6, display: "flex", alignItems: "center" }}>
+    <Box sx={{ bgcolor: "background.default", minHeight: "100vh", py: 6, display: "flex", alignItems: "center" }}>
       <Container maxWidth="sm">
         <Paper
           elevation={0}
@@ -15,12 +15,13 @@ export default function NotAuthorized() {
             p: 4,
             textAlign: "center",
             borderRadius: "16px",
-            border: "1px solid #e0e0e0",
-            background: "linear-gradient(to right, #ffffff, #f8f9fa)",
+            border: "1px solid",
+            borderColor: "divider",
+            bgcolor: "background.paper",
           }}
         >
-          <LockIcon sx={{ fontSize: 60, color: "#d32f2f", mb: 2 }} />
-          <Typography variant="h4" sx={{ fontWeight: 700, mb: 2, color: "#1a237e" }}>
+          <LockIcon sx={{ fontSize: 60, color: "secondary.main", mb: 2 }} />
+          <Typography variant="h4" sx={{ fontWeight: 700, mb: 2, color: "primary.main" }}>
             Access Denied
           </Typography>
           <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
@@ -29,7 +30,7 @@ export default function NotAuthorized() {
           <Stack direction="row" spacing={2} justifyContent="center">
             <Button
               variant="contained"
-              color="primary"
+              color="secondary"
               onClick={() => navigate("/login")}
               sx={{ textTransform: "none" }}
             >
@@ -37,7 +38,7 @@ export default function NotAuthorized() {
             </Button>
             <Button
               variant="outlined"
-              color="primary"
+              color="secondary"
               startIcon={<ArrowBackIcon />}
               onClick={() => navigate(-1)}
               sx={{ textTransform: "none" }}

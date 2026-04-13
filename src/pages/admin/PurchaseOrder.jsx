@@ -91,11 +91,11 @@ export default function PurchaseOrder() {
   };
 
   return (
-    <Box sx={{ bgcolor: "#f4f7f6", minHeight: "100vh", py: 4 }}>
+    <Box sx={{ bgcolor: "background.default", minHeight: "100vh", py: 4 }}>
       <Container maxWidth="lg">
 
-        <Paper elevation={0} sx={{ p: 4, mb: 4, textAlign: 'center', borderRadius: "16px", border: "1px solid #e0e0e0", background: "linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)", borderLeft: "8px solid #1a237e" }}>
-          <Typography variant="h4" sx={{ fontWeight: 800, color: "#1a237e", display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 2 }}>
+        <Paper elevation={0} sx={{ p: 4, mb: 4, textAlign: 'center', borderRadius: "16px", border: "1px solid #e0e0e0", background: "linear-gradient(135deg, rgba(249,243,232,1) 0%, rgba(241,226,208,1) 100%)", borderLeft: "8px solid" }}>
+          <Typography variant="h4" sx={{ fontWeight: 800, color: "primary.main", display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 2 }}>
             <ReceiptLongIcon sx={{ fontSize: 40 }} /> Purchase Orders
           </Typography>
           <Typography variant="body1" color="text.secondary">Manage procurement requests and official vendor orders</Typography>
@@ -110,13 +110,13 @@ export default function PurchaseOrder() {
               onKeyDown={handleSearchKey}
               InputProps={{ startAdornment: <InputAdornment position="start"><SearchIcon fontSize="small"/></InputAdornment> }}
             />
-            <Button variant="contained" onClick={searchPO} sx={{ bgcolor: "#1a237e", px: 4, fontWeight: 'bold' }}>SEARCH</Button>
+            <Button variant="contained" onClick={searchPO} sx={{ bgcolor: "primary.main", px: 4, fontWeight: 'bold' }}>SEARCH</Button>
             <IconButton onClick={() => { setSearch(""); load(); }} sx={{ border: '1px solid #ccc', borderRadius: '4px' }}><RestartAltIcon /></IconButton>
           </Stack>
         </Paper>
 
         <Paper elevation={0} sx={{ p: 4, mb: 4, border: "1px solid #e0e0e0", borderRadius: "16px" }}>
-          <Typography variant="h6" sx={{ mb: 3, fontWeight: 'bold', color: '#1a237e', display: 'flex', alignItems: 'center', gap: 1 }}>
+          <Typography variant="h6" sx={{ mb: 3, fontWeight: 'bold', color: "primary.main", display: 'flex', alignItems: 'center', gap: 1 }}>
             <AssignmentIcon /> Generate New Purchase Order
           </Typography>
 
@@ -161,7 +161,7 @@ export default function PurchaseOrder() {
                     <TextField fullWidth label="Total Estimated Amount" type="number" size="small" value={form.totalAmount} onChange={(e) => setForm({ ...form, totalAmount: e.target.value })} InputProps={{ startAdornment: <InputAdornment position="start">₹</InputAdornment> }} />
                   </Grid>
                   <Grid item xs={12}>
-                    <Button fullWidth variant="contained" type="submit" size="large" sx={{ bgcolor: "#1a237e", fontWeight: 'bold', mt: 1 }}>
+                    <Button fullWidth variant="contained" type="submit" size="large" sx={{ bgcolor: "primary.main", fontWeight: 'bold', mt: 1 }}>
                       CONFIRM & CREATE OFFICIAL ORDER
                     </Button>
                   </Grid>
@@ -173,7 +173,7 @@ export default function PurchaseOrder() {
 
         <Paper elevation={0} sx={{ borderRadius: "12px", border: "1px solid #e0e0e0", overflow: "hidden" }}>
           <Table>
-            <TableHead sx={{ bgcolor: "#1a237e", "& .MuiTableCell-head": { color: "white", fontWeight: "bold" } }}>
+            <TableHead sx={{ bgcolor: "primary.main", "& .MuiTableCell-head": { color: "white", fontWeight: "bold" } }}>
               <TableRow>
                 <TableCell>PO NO.</TableCell>
                 <TableCell>VENDOR</TableCell>
@@ -189,10 +189,10 @@ export default function PurchaseOrder() {
                 <TableRow key={p.id} hover>
                   <TableCell sx={{ fontWeight: 'bold' }}>{p.poNumber}</TableCell>
                   <TableCell>{p.vendor?.companyName}</TableCell>
-                  <TableCell sx={{ color: '#1a237e', fontWeight: 'bold' }}>
+                  <TableCell sx={{ color: "primary.main", fontWeight: 'bold' }}>
                     {p.totalAmount != null ? `₹ ${parseFloat(p.totalAmount).toLocaleString()}` : "—"}
                   </TableCell>
-                  <TableCell><Chip label={p.status || "CREATED"} size="small" sx={{ bgcolor: "#e8eaf6", color: "#1a237e", fontWeight: 'bold' }} /></TableCell>
+                  <TableCell><Chip label={p.status || "CREATED"} size="small" sx={{ bgcolor: "#e8eaf6", color: "primary.main", fontWeight: 'bold' }} /></TableCell>
                   <TableCell align="center">
                     <Stack direction="row" spacing={1} justifyContent="center">
                       <Button variant="outlined" size="small" color="primary" onClick={() => setViewPO(p)}>VIEW</Button>
@@ -208,27 +208,27 @@ export default function PurchaseOrder() {
 
       {/* VIEW Dialog */}
       <Dialog open={!!viewPO} onClose={() => setViewPO(null)} maxWidth="sm" fullWidth>
-        <DialogTitle sx={{ fontWeight: 'bold', color: '#1a237e' }}>Purchase Order Details</DialogTitle>
+        <DialogTitle sx={{ fontWeight: 'bold', color: "primary.main" }}>Purchase Order Details</DialogTitle>
         <DialogContent dividers>
           {viewPO && (
             <Stack spacing={1.5}>
               <Box><Typography variant="caption" color="text.secondary">PO Number</Typography><Typography fontWeight="bold">{viewPO.poNumber}</Typography></Box>
               <Box><Typography variant="caption" color="text.secondary">Vendor</Typography><Typography fontWeight="bold">{viewPO.vendor?.companyName || "—"}</Typography></Box>
               <Box><Typography variant="caption" color="text.secondary">Order Date</Typography><Typography>{viewPO.orderDate || "—"}</Typography></Box>
-              <Box><Typography variant="caption" color="text.secondary">Total Amount</Typography><Typography fontWeight="bold" color="#1a237e">{viewPO.totalAmount != null ? `₹ ${parseFloat(viewPO.totalAmount).toLocaleString()}` : "—"}</Typography></Box>
-              <Box><Typography variant="caption" color="text.secondary">Status</Typography><Chip label={viewPO.status || "CREATED"} size="small" sx={{ bgcolor: "#e8eaf6", color: "#1a237e", fontWeight: 'bold' }} /></Box>
+              <Box><Typography variant="caption" color="text.secondary">Total Amount</Typography><Typography fontWeight="bold" color="primary.main">{viewPO.totalAmount != null ? `₹ ${parseFloat(viewPO.totalAmount).toLocaleString()}` : "—"}</Typography></Box>
+              <Box><Typography variant="caption" color="text.secondary">Status</Typography><Chip label={viewPO.status || "CREATED"} size="small" sx={{ bgcolor: "#e8eaf6", color: "primary.main", fontWeight: 'bold' }} /></Box>
               <Box><Typography variant="caption" color="text.secondary">Requisition ID</Typography><Typography>#{viewPO.requisition?.id || "—"}</Typography></Box>
             </Stack>
           )}
         </DialogContent>
         <DialogActions sx={{ p: 2 }}>
-          <Button onClick={() => setViewPO(null)} variant="contained" sx={{ bgcolor: "#1a237e" }}>Close</Button>
+          <Button onClick={() => setViewPO(null)} variant="contained" sx={{ bgcolor: "primary.main" }}>Close</Button>
         </DialogActions>
       </Dialog>
 
       {/* DELETE Dialog */}
       <Dialog open={openDelete} onClose={() => setOpenDelete(false)}>
-        <DialogTitle sx={{ fontWeight: 'bold', color: '#d32f2f' }}>Delete PO?</DialogTitle>
+        <DialogTitle sx={{ fontWeight: 'bold', color: '#9c3c31' }}>Delete PO?</DialogTitle>
         <DialogContent><DialogContentText>Are you sure you want to delete PO #{selectedId}?</DialogContentText></DialogContent>
         <DialogActions sx={{ p: 2 }}>
           <Button onClick={() => setOpenDelete(false)}>Cancel</Button>

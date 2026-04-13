@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import api from "../../api/axios";
 import { useNavigate, useLocation } from "react-router-dom";
 
+import { getUserDisplayName, getUserAvatarInitial } from "../../utils/userUtils";
 import {
   Box, Typography, Paper, Table, TableHead, TableRow, TableCell,
   TableBody, Grid, Card, CardContent, Container, Stack, Divider,
@@ -26,6 +27,8 @@ export default function EmployeeDashboard() {
   
   const navigate = useNavigate();
   const location = useLocation();
+  const displayName = getUserDisplayName();
+  const displayInitial = getUserAvatarInitial(displayName);
 
   useEffect(() => { load(); }, []);
 
@@ -50,66 +53,159 @@ export default function EmployeeDashboard() {
   ];
 
   return (
-    <Box sx={{ display: "flex", bgcolor: "#f4f7f6", minHeight: "100vh" }}>
-      
-      <Drawer variant="permanent" sx={{ width: drawerWidth, flexShrink: 0, [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: "border-box", borderRight: "1px solid #eee" } }}>
-        <Box sx={{ p: 4, textAlign: 'center' }}>
-          <Typography variant="h5" sx={{ fontWeight: 900, color: "#1976d2" }}>SMART <span style={{ color: "#333" }}>EMP</span></Typography>
+    <Box
+      sx={{
+        display: "flex",
+        bgcolor: "background.default",
+        minHeight: "100vh",
+      }}
+    >
+      <Drawer
+        variant="permanent"
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          [`& .MuiDrawer-paper`]: {
+            width: drawerWidth,
+            boxSizing: "border-box",
+            borderRight: "1px solid #eee",
+          },
+        }}
+      >
+        <Box sx={{ p: 4, textAlign: "center" }}>
+          <Typography
+            variant="h5"
+            sx={{ fontWeight: 900, color: "secondary.main" }}
+          >
+            SMART <span style={{ color: "#7a6248" }}>EMP</span>
+          </Typography>
         </Box>
         <Divider variant="middle" sx={{ mb: 2 }} />
         <List sx={{ px: 2, flexGrow: 1 }}>
           {menuItems.map((item) => (
-            <ListItemButton key={item.text} onClick={() => navigate(item.path)} selected={location.pathname === item.path} sx={{ borderRadius: "8px", mb: 1, py: 1.5, "&.Mui-selected": { bgcolor: "rgba(25, 118, 210, 0.08)", color: "#1a237e" } }}>
+            <ListItemButton
+              key={item.text}
+              onClick={() => navigate(item.path)}
+              selected={location.pathname === item.path}
+              sx={{
+                borderRadius: "8px",
+                mb: 1,
+                py: 1.5,
+                "&.Mui-selected": {
+                  bgcolor: "rgba(179, 143, 92, 0.16)",
+                  color: "primary.main",
+                },
+              }}
+            >
               <ListItemIcon sx={{ minWidth: 45 }}>{item.icon}</ListItemIcon>
-              <ListItemText primary={item.text} primaryTypographyProps={{ fontWeight: 700, fontSize: '0.85rem' }} />
+              <ListItemText
+                primary={item.text}
+                primaryTypographyProps={{
+                  fontWeight: 700,
+                  fontSize: "0.85rem",
+                }}
+              />
             </ListItemButton>
           ))}
         </List>
-        <Box sx={{ p: 3 }}><Button fullWidth variant="outlined" color="error" startIcon={<LogoutIcon />} onClick={() => { localStorage.clear(); navigate("/"); }} sx={{ borderRadius: "8px", fontWeight: 800 }}>LOGOUT</Button></Box>
+        <Box sx={{ p: 3 }}>
+          <Button
+            fullWidth
+            variant="outlined"
+            color="error"
+            startIcon={<LogoutIcon />}
+            onClick={() => {
+              localStorage.clear();
+              navigate("/");
+            }}
+            sx={{ borderRadius: "8px", fontWeight: 800 }}
+          >
+            LOGOUT
+          </Button>
+        </Box>
       </Drawer>
-
-
 
       <Box component="main" sx={{ flexGrow: 1, p: 4 }}>
         <Container maxWidth="lg">
-          
-          <Card elevation={0} sx={{ 
-            mb: 4, 
-            borderRadius: 3, 
-            border: "1px solid #e0e0e0", 
-            borderTop: "6px solid #1976d2" 
-          }}>
+          <Card
+            elevation={0}
+            sx={{
+              mb: 4,
+              borderRadius: 3,
+              border: "1px solid #e0e0e0",
+              borderTop: "6px solid",
+            }}
+          >
             <CardContent sx={{ p: 3 }}>
-              <Stack direction="row" justifyContent="space-between" alignItems="center">
+              <Stack
+                direction="row"
+                justifyContent="space-between"
+                alignItems="center"
+              >
                 <Box>
-                  <Typography variant="h4" sx={{ fontWeight: 800, color: "#333" }}>
-                    Welcome Back, Employee
+                  <Typography
+                    variant="h4"
+                    sx={{ fontWeight: 800, color: "text.primary" }}
+                  >
+                    Welcome Back, {displayName}
                   </Typography>
                   <Typography variant="body1" color="text.secondary">
                     Access inventory and manage your procurement requisitions.
                   </Typography>
                 </Box>
-                <Avatar sx={{ bgcolor: "#1976d2", width: 56, height: 56 }}>
-                  <AccountCircleIcon sx={{ fontSize: 40 }} />
+                <Avatar
+                  sx={{ bgcolor: "secondary.main", width: 56, height: 56 }}
+                >
+                  {displayInitial}
                 </Avatar>
               </Stack>
             </CardContent>
           </Card>
 
-    
           <Grid container spacing={3} sx={{ mb: 5 }}>
-            <StatCard title="Total Items" count={items.length} color="#1976d2" icon={<CategoryIcon />} />
-            <StatCard title="Inventory Records" count={inventory.length} color="#2e7d32" icon={<WarehouseIcon />} />
-            <StatCard title="My Requests" count={reqs.length} color="#ed6c02" icon={<ListAltIcon />} />
+            <StatCard
+              title="Total Items"
+              count={items.length}
+              color="secondary.main"
+              icon={<CategoryIcon />}
+            />
+            <StatCard
+              title="Inventory Records"
+              count={inventory.length}
+              color="#6e5135"
+              icon={<WarehouseIcon />}
+            />
+            <StatCard
+              title="My Requests"
+              count={reqs.length}
+              color="secondary.main"
+              icon={<ListAltIcon />}
+            />
           </Grid>
 
-        
           <Grid container spacing={4}>
             <Grid item xs={12} md={7}>
-              <Typography variant="h6" sx={{ mb: 2, fontWeight: 'bold' }}>Available Items Catalogue</Typography>
-              <Paper elevation={0} sx={{ borderRadius: "12px", border: "1px solid #e0e0e0", overflow: "hidden" }}>
+              <Typography variant="h6" sx={{ mb: 2, fontWeight: "bold" }}>
+                Available Items Catalogue
+              </Typography>
+              <Paper
+                elevation={0}
+                sx={{
+                  borderRadius: "12px",
+                  border: "1px solid #e0e0e0",
+                  overflow: "hidden",
+                }}
+              >
                 <Table>
-                  <TableHead sx={{ bgcolor: "#1976d2", "& .MuiTableCell-head": { color: "white", fontWeight: "bold" } }}>
+                  <TableHead
+                    sx={{
+                      bgcolor: "secondary.main",
+                      "& .MuiTableCell-head": {
+                        color: "white",
+                        fontWeight: "bold",
+                      },
+                    }}
+                  >
                     <TableRow>
                       <TableCell>ID</TableCell>
                       <TableCell>Item Name</TableCell>
@@ -119,9 +215,24 @@ export default function EmployeeDashboard() {
                   <TableBody>
                     {items.map((i) => (
                       <TableRow key={i.id} hover>
-                        <TableCell sx={{ borderRight: "1px solid #eee" }}>#{i.id}</TableCell>
-                        <TableCell sx={{ borderRight: "1px solid #eee", fontWeight: 600 }}>{i.itemName}</TableCell>
-                        <TableCell><Chip label={i.category} size="small" variant="outlined" /></TableCell>
+                        <TableCell sx={{ borderRight: "1px solid #eee" }}>
+                          #{i.id}
+                        </TableCell>
+                        <TableCell
+                          sx={{
+                            borderRight: "1px solid #eee",
+                            fontWeight: 600,
+                          }}
+                        >
+                          {i.itemName}
+                        </TableCell>
+                        <TableCell>
+                          <Chip
+                            label={i.category}
+                            size="small"
+                            variant="outlined"
+                          />
+                        </TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
@@ -130,10 +241,27 @@ export default function EmployeeDashboard() {
             </Grid>
 
             <Grid item xs={12} md={5}>
-              <Typography variant="h6" sx={{ mb: 2, fontWeight: 'bold' }}>Live Stock Levels</Typography>
-              <Paper elevation={0} sx={{ borderRadius: "12px", border: "1px solid #e0e0e0", overflow: "hidden" }}>
+              <Typography variant="h6" sx={{ mb: 2, fontWeight: "bold" }}>
+                Live Stock Levels
+              </Typography>
+              <Paper
+                elevation={0}
+                sx={{
+                  borderRadius: "12px",
+                  border: "1px solid #e0e0e0",
+                  overflow: "hidden",
+                }}
+              >
                 <Table>
-                  <TableHead sx={{ bgcolor: "#1976d2", "& .MuiTableCell-head": { color: "white", fontWeight: "bold" } }}>
+                  <TableHead
+                    sx={{
+                      bgcolor: "secondary.main",
+                      "& .MuiTableCell-head": {
+                        color: "white",
+                        fontWeight: "bold",
+                      },
+                    }}
+                  >
                     <TableRow>
                       <TableCell>Item</TableCell>
                       <TableCell align="right">Qty</TableCell>
@@ -142,16 +270,24 @@ export default function EmployeeDashboard() {
                   <TableBody>
                     {inventory.map((inv) => (
                       <TableRow key={inv.id} hover>
-                        <TableCell sx={{ fontWeight: 500 }}>{inv.item?.itemName}</TableCell>
+                        <TableCell sx={{ fontWeight: 500 }}>
+                          {inv.item?.itemName}
+                        </TableCell>
                         <TableCell align="right">
-                          <Chip 
-                            label={inv.quantityAvailable} 
-                            size="small" 
-                            sx={{ 
-                                fontWeight: 'bold', 
-                                bgcolor: inv.quantityAvailable < 5 ? "#ffebee" : "#e8f5e9",
-                                color: inv.quantityAvailable < 5 ? "#d32f2f" : "#2e7d32"
-                            }} 
+                          <Chip
+                            label={inv.quantityAvailable}
+                            size="small"
+                            sx={{
+                              fontWeight: "bold",
+                              bgcolor:
+                                inv.quantityAvailable < 5
+                                  ? "#f6e2d7"
+                                  : "#f3e5cf",
+                              color:
+                                inv.quantityAvailable < 5
+                                  ? "#9c3c31"
+                                  : "#6e5135",
+                            }}
                           />
                         </TableCell>
                       </TableRow>

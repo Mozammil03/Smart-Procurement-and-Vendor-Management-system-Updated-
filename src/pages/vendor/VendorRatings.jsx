@@ -53,7 +53,7 @@ export default function VendorRatings() {
           variant="h4"
           sx={{
             fontWeight: 800,
-            color: "#333",
+            color: "text.primary",
             display: "flex",
             alignItems: "center",
             gap: 2,
@@ -69,7 +69,7 @@ export default function VendorRatings() {
         <Box sx={{ mt: 2 }}>
           <Chip
             label={`Overall Avg: ${overallAvg} / 10`}
-            sx={{ fontWeight: "bold", bgcolor: "#1976d2", color: "#fff" }}
+            sx={{ fontWeight: "bold", bgcolor: "secondary.main", color: "#fff" }}
           />
         </Box>
       </Box>
@@ -92,7 +92,7 @@ export default function VendorRatings() {
         }}
       >
         <Table>
-          <TableHead sx={{ bgcolor: "#1976d2" }}>
+          <TableHead sx={{ bgcolor: "secondary.main" }}>
             <TableRow>
               <TableCell sx={{ fontWeight: "bold", color: "#fff" }}></TableCell>
               <TableCell sx={{ fontWeight: "bold", color: "#fff" }}>
@@ -136,8 +136,8 @@ export default function VendorRatings() {
                       label={r.isAdminRating ? "ADMIN" : "USER"}
                       size="small"
                       sx={{
-                        bgcolor: r.isAdminRating ? "#e8f5e9" : "#fff3e0",
-                        color: r.isAdminRating ? "#2e7d32" : "#ef6c00",
+                        bgcolor: r.isAdminRating ? "#f3e5cf" : "#f7e1ca",
+                        color: r.isAdminRating ? "#6e5135" : "#a87954",
                         fontWeight: "bold",
                       }}
                     />

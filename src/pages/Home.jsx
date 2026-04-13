@@ -21,11 +21,11 @@ export default function Home() {
   };
 
   return (
-    <Box sx={{ bgcolor: "#fff" }}>
+    <Box sx={{ bgcolor: "background.default" }}>
 
-      <AppBar position="sticky" sx={{ bgcolor: "white", color: "#333" }} elevation={1}>
+      <AppBar position="sticky" sx={{ bgcolor: "background.paper", color: "text.primary" }} elevation={1}>
         <Toolbar>
-          <Typography variant="h5" sx={{ flexGrow: 1, fontWeight: 800, color: "#1976d2", letterSpacing: 1 }}>
+          <Typography variant="h5" sx={{ flexGrow: 1, fontWeight: 800, color: "primary.main", letterSpacing: 1 }}>
             SmartProcure
           </Typography>
 
@@ -50,8 +50,8 @@ export default function Home() {
         sx={{
           py: { xs: 8, md: 12 },
           textAlign: "center",
-          background: "linear-gradient(135deg, #0d47a1 0%, #1976d2 50%, #42a5f5 100%)",
-          color: "#fff",
+          background: "linear-gradient(135deg, #f6e9d1 0%, #eed7b2 55%, #ead0a9 100%)",
+          color: "text.primary",
           clipPath: "ellipse(100% 85% at 50% 15%)",
         }}
       >
@@ -68,7 +68,7 @@ export default function Home() {
               variant="contained"
               color="secondary"
               size="large"
-              sx={{ px: 4, py: 1.5, fontWeight: 'bold', bgcolor: "#ff9100", '&:hover': { bgcolor: "#ff6d00" } }}
+              sx={{ px: 4, py: 1.5, fontWeight: 'bold' }}
               onClick={() => navigate("/login")}
             >
               Launch Dashboard
@@ -85,22 +85,22 @@ export default function Home() {
           <ServiceCard 
             title="Vendor Management" 
             desc="Efficient onboarding, performance metrics, and compliance tracking." 
-            icon={<GroupsIcon sx={{ fontSize: 40, color: "#1976d2" }} />} 
+            icon={<GroupsIcon sx={{ fontSize: 40, color: "primary.main" }} />} 
           />
           <ServiceCard 
             title="Workflow Automation" 
             desc="Intelligent approval chains for requisitions and purchase orders." 
-            icon={<AssignmentTurnedInIcon sx={{ fontSize: 40, color: "#1976d2" }} />} 
+            icon={<AssignmentTurnedInIcon sx={{ fontSize: 40, color: "primary.main" }} />} 
           />
           <ServiceCard 
             title="Real-time Tracking" 
             desc="Full visibility into the procurement lifecycle from request to delivery." 
-            icon={<RocketLaunchIcon sx={{ fontSize: 40, color: "#1976d2" }} />} 
+            icon={<RocketLaunchIcon sx={{ fontSize: 40, color: "primary.main" }} />} 
           />
         </Grid>
       </Container>
 
-      <Box sx={{ bgcolor: "#f8f9fa", py: 10 }} id="work">
+      <Box sx={{ bgcolor: "background.paper", py: 10 }} id="work">
         <Container>
           <Grid container spacing={6} alignItems="center">
             <Grid size={{ xs: 12, md: 6 }}>
@@ -128,7 +128,7 @@ export default function Home() {
               </Stack>
             </Grid>
             <Grid size={{ xs: 12, md: 6 }}>
-              <Paper elevation={0} sx={{ p: 4, borderRadius: 4, bgcolor: "#fff", border: "1px solid #e0e0e0" }}>
+              <Paper elevation={0} sx={{ p: 4, borderRadius: 4, bgcolor: "background.paper", border: "1px solid", borderColor: "divider" }}>
                 <Typography variant="h6" gutterBottom sx={{ fontWeight: 700, display: 'flex', alignItems: 'center', gap: 1 }}>
                   <TerminalIcon color="primary" /> Engineering Highlights
                 </Typography>
@@ -156,12 +156,12 @@ export default function Home() {
           <Grid size={{ xs: 12, md: 5 }}>
             <Card sx={{ height: '100%', borderRadius: 4, textAlign: 'center', p: 2 }}>
               <CardContent>
-                <Avatar sx={{ bgcolor: "#1976d2", width: 64, height: 64, mx: 'auto', mb: 2 }}>
+                <Avatar sx={{ bgcolor: "secondary.main", width: 64, height: 64, mx: 'auto', mb: 2 }}>
                   <SchoolIcon />
                 </Avatar>
                 <Typography variant="h5" sx={{ fontWeight: 700 }}>Madhuri Ankolekar</Typography>
                 <Typography color="primary" gutterBottom sx={{ fontWeight: 600 }}>Project Mentor</Typography>
-                <Typography variant="body2" sx={{ fontStyle: 'italic', color: "#666" }}>
+                <Typography variant="body2" sx={{ fontStyle: 'italic', color: "text.secondary" }}>
                   "Guiding us through the complexities of enterprise-grade development and 
                   ensuring our architecture met industry standards."
                 </Typography>
@@ -172,14 +172,14 @@ export default function Home() {
           <Grid size={{ xs: 12, md: 5 }}>
   <Card sx={{ height: '100%', borderRadius: 4, textAlign: 'center', p: 2 }}>
     <CardContent>
-      <Avatar sx={{ bgcolor: "#2e7d32", width: 64, height: 64, mx: 'auto', mb: 2 }}>
+      <Avatar sx={{ bgcolor: "primary.main", width: 64, height: 64, mx: 'auto', mb: 2 }}>
         <GroupsIcon />
       </Avatar>
       <Typography variant="h5" sx={{ fontWeight: 700 }}>Collaboration & Core Dev</Typography>
       <Typography color="primary" gutterBottom sx={{ fontWeight: 600 }}>Partha, Ganesh & Presentation Team</Typography>
     
 
-      <Typography variant="body2" sx={{ color: "#666", mt: 2 }}>
+      <Typography variant="body2" sx={{ color: "text.secondary", mt: 2 }}>
         A massive shoutout to <strong>Partha</strong>, who architected and designed the vast 
         majority of the platform's interface and frontend logic. Special thanks to 
         <strong> Ganesh</strong> for his contributions to the design modules and the 
@@ -190,21 +190,22 @@ export default function Home() {
 </Grid>
         </Grid>
 
-        <Box sx={{ mt: 8, p: 4, bgcolor: "#e3f2fd", borderRadius: 4, textAlign: 'center' }}>
-          <Typography variant="h6" sx={{ fontWeight: 700, color: "#0d47a1" }}>
+        <Box sx={{ mt: 8, p: 4, bgcolor: "background.paper", borderRadius: 4, textAlign: 'center' }}>
+          <Typography variant="h6" sx={{ fontWeight: 700, color: "primary.main" }}>
             Technical Stack: React.js | Spring Boot | MySQL | Material UI | REST APIs
           </Typography>
         </Box>
       </Container>
 
-      <Box sx={{ py: 10, textAlign: "center", bgcolor: "#1a237e", color: "white" }}>
+      <Box sx={{ py: 10, textAlign: "center", bgcolor: "#3f2c1e", color: "#f7f1e8" }}>
         <Typography variant="h4" sx={{ fontWeight: 800, mb: 3 }}>
           Ready to Experience the Transformation?
         </Typography>
         <Button
           variant="contained"
+          color="secondary"
           size="large"
-          sx={{ px: 6, py: 2, borderRadius: 3, fontWeight: 'bold', bgcolor: "#ffc107", color: "#000", '&:hover': { bgcolor: "#ffb300" } }}
+          sx={{ px: 6, py: 2, borderRadius: 3, fontWeight: 'bold' }}
           onClick={() => navigate("/login")}
         >
           Explore the Dashboard

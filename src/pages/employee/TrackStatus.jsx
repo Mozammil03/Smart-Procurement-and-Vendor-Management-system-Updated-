@@ -74,49 +74,136 @@ const menuItems = [
   ];
 
   return (
-    <Box sx={{ display: "flex", bgcolor: "#f4f7f6", minHeight: "100vh" }}>
-      
-  
-      <Drawer variant="permanent" sx={{ width: drawerWidth, flexShrink: 0, [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: "border-box", borderRight: "1px solid #eee" } }}>
-        <Box sx={{ p: 4, textAlign: 'center' }}>
-          <Typography variant="h5" sx={{ fontWeight: 900, color: "#1976d2" }}>SMART <span style={{ color: "#333" }}>EMP</span></Typography>
+    <Box
+      sx={{
+        display: "flex",
+        bgcolor: "background.default",
+        minHeight: "100vh",
+      }}
+    >
+      <Drawer
+        variant="permanent"
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          [`& .MuiDrawer-paper`]: {
+            width: drawerWidth,
+            boxSizing: "border-box",
+            borderRight: "1px solid #eee",
+          },
+        }}
+      >
+        <Box sx={{ p: 4, textAlign: "center" }}>
+          <Typography
+            variant="h5"
+            sx={{ fontWeight: 900, color: "secondary.main" }}
+          >
+            SMART <span style={{ color: "#7a6248" }}>EMP</span>
+          </Typography>
         </Box>
         <Divider variant="middle" sx={{ mb: 2 }} />
         <List sx={{ px: 2, flexGrow: 1 }}>
           {menuItems.map((item) => (
-            <ListItemButton key={item.text} onClick={() => navigate(item.path)} selected={location.pathname === item.path} sx={{ borderRadius: "8px", mb: 1, py: 1.5, "&.Mui-selected": { bgcolor: "rgba(25, 118, 210, 0.08)", color: "#1a237e" } }}>
+            <ListItemButton
+              key={item.text}
+              onClick={() => navigate(item.path)}
+              selected={location.pathname === item.path}
+              sx={{
+                borderRadius: "8px",
+                mb: 1,
+                py: 1.5,
+                "&.Mui-selected": {
+                  bgcolor: "rgba(179, 143, 92, 0.16)",
+                  color: "primary.main",
+                },
+              }}
+            >
               <ListItemIcon sx={{ minWidth: 45 }}>{item.icon}</ListItemIcon>
-              <ListItemText primary={item.text} primaryTypographyProps={{ fontWeight: 700, fontSize: '0.85rem' }} />
+              <ListItemText
+                primary={item.text}
+                primaryTypographyProps={{
+                  fontWeight: 700,
+                  fontSize: "0.85rem",
+                }}
+              />
             </ListItemButton>
           ))}
         </List>
-        <Box sx={{ p: 3 }}><Button fullWidth variant="outlined" color="error" startIcon={<LogoutIcon />} onClick={() => { localStorage.clear(); navigate("/"); }} sx={{ borderRadius: "8px", fontWeight: 800 }}>LOGOUT</Button></Box>
+        <Box sx={{ p: 3 }}>
+          <Button
+            fullWidth
+            variant="outlined"
+            color="error"
+            startIcon={<LogoutIcon />}
+            onClick={() => {
+              localStorage.clear();
+              navigate("/");
+            }}
+            sx={{ borderRadius: "8px", fontWeight: 800 }}
+          >
+            LOGOUT
+          </Button>
+        </Box>
       </Drawer>
 
-    
       <Box component="main" sx={{ flexGrow: 1, p: 4 }}>
         <Container maxWidth="lg">
-          
-    
-          <Card elevation={0} sx={{ mb: 4, borderRadius: 4, border: "1px solid #e0e0e0", borderTop: "6px solid #1976d2", textAlign: 'center' }}>
+          <Card
+            elevation={0}
+            sx={{
+              mb: 4,
+              borderRadius: 4,
+              border: "1px solid #e0e0e0",
+              borderTop: "6px solid",
+              textAlign: "center",
+            }}
+          >
             <CardContent sx={{ py: 3 }}>
               <Stack alignItems="center" spacing={1}>
-                <Avatar sx={{ bgcolor: "rgba(25, 118, 210, 0.1)", color: "#1976d2", width: 50, height: 50, mb: 1 }}>
+                <Avatar
+                  sx={{
+                    bgcolor: "rgba(179, 143, 92, 0.16)",
+                    color: "secondary.main",
+                    width: 50,
+                    height: 50,
+                    mb: 1,
+                  }}
+                >
                   <TrackChangesIcon sx={{ fontSize: 35 }} />
                 </Avatar>
-                <Typography variant="h5" sx={{ fontWeight: 800 }}>Track Procurement Status</Typography>
-                <Typography variant="body2" color="text.secondary">Enter a Requisition ID to see the live workflow progress.</Typography>
+                <Typography variant="h5" sx={{ fontWeight: 800 }}>
+                  Track Procurement Status
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Enter a Requisition ID to see the live workflow progress.
+                </Typography>
               </Stack>
             </CardContent>
           </Card>
 
           <Grid container spacing={4}>
-        
             <Grid item xs={12} md={6}>
-              <Typography variant="h6" sx={{ mb: 2, fontWeight: 800 }}>Recent Requisitions</Typography>
-              <Paper elevation={0} sx={{ borderRadius: "12px", border: "1px solid #e0e0e0", overflow: "hidden" }}>
+              <Typography variant="h6" sx={{ mb: 2, fontWeight: 800 }}>
+                Recent Requisitions
+              </Typography>
+              <Paper
+                elevation={0}
+                sx={{
+                  borderRadius: "12px",
+                  border: "1px solid #e0e0e0",
+                  overflow: "hidden",
+                }}
+              >
                 <Table>
-                  <TableHead sx={{ bgcolor: "#2833bf", "& .MuiTableCell-head": { color: "white", fontWeight: "bold" } }}>
+                  <TableHead
+                    sx={{
+                      bgcolor: "secondary.main",
+                      "& .MuiTableCell-head": {
+                        color: "white",
+                        fontWeight: "bold",
+                      },
+                    }}
+                  >
                     <TableRow>
                       <TableCell>ID</TableCell>
                       <TableCell>Status</TableCell>
@@ -128,14 +215,30 @@ const menuItems = [
                       <TableRow key={r.id} hover>
                         <TableCell sx={{ fontWeight: 700 }}>#{r.id}</TableCell>
                         <TableCell>
-                          <Chip label={r.status} size="small" sx={{ 
-                            fontWeight: 800, fontSize: '0.65rem',
-                            bgcolor: r.status === "APPROVED" ? "#e8f5e9" : "#fff3e0",
-                            color: r.status === "APPROVED" ? "#2e7d32" : "#ef6c00"
-                          }} />
+                          <Chip
+                            label={r.status}
+                            size="small"
+                            sx={{
+                              fontWeight: 800,
+                              fontSize: "0.65rem",
+                              bgcolor:
+                                r.status === "APPROVED" ? "#f3e5cf" : "#f7e1ca",
+                              color:
+                                r.status === "APPROVED" ? "#6e5135" : "#a87954",
+                            }}
+                          />
                         </TableCell>
                         <TableCell align="right">
-                          <Button size="small" variant="outlined" onClick={() => { setId(r.id); track(r.id); }}>TRACK</Button>
+                          <Button
+                            size="small"
+                            variant="outlined"
+                            onClick={() => {
+                              setId(r.id);
+                              track(r.id);
+                            }}
+                          >
+                            TRACK
+                          </Button>
                         </TableCell>
                       </TableRow>
                     ))}
@@ -144,44 +247,85 @@ const menuItems = [
               </Paper>
             </Grid>
 
-            
             <Grid item xs={12} md={6}>
-              <Paper elevation={0} sx={{ p: 2, mb: 3, border: "1px solid #e0e0e0", borderRadius: "12px" }}>
+              <Paper
+                elevation={0}
+                sx={{
+                  p: 2,
+                  mb: 3,
+                  border: "1px solid #e0e0e0",
+                  borderRadius: "12px",
+                }}
+              >
                 <Stack direction="row" spacing={1}>
-                  <TextField fullWidth size="small" placeholder="Enter ID to track..." value={id} onChange={(e) => setId(e.target.value)}
-                    InputProps={{ startAdornment: <InputAdornment position="start"><SearchIcon fontSize="small" /></InputAdornment> }} />
-                  <Button variant="contained" onClick={() => track()} sx={{ bgcolor: "#1976d2" }}>TRACK</Button>
+                  <TextField
+                    fullWidth
+                    size="small"
+                    placeholder="Enter ID to track..."
+                    value={id}
+                    onChange={(e) => setId(e.target.value)}
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <SearchIcon fontSize="small" />
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                  <Button
+                    variant="contained"
+                    onClick={() => track()}
+                    sx={{ bgcolor: "secondary.main" }}
+                  >
+                    TRACK
+                  </Button>
                 </Stack>
               </Paper>
 
-          
               <Stack spacing={2}>
-              
-                <StatusStep icon={<VerifiedUserIcon />} title="Management Approval" color={approval.length > 0 ? "#2e7d32" : "#ccc"}>
-                  {approval.length > 0 ? (
-                    approval.map((a, i) => (
-                <Typography variant="body2" key={i}>
-                 Approved by: <b>{a.managerName ? a.managerName : "Manager"}</b> ({a.decision})
-                </Typography>                    ))
-                  ) : "Waiting for manager review..."}
+                <StatusStep
+                  icon={<VerifiedUserIcon />}
+                  title="Management Approval"
+                  color={approval.length > 0 ? "#6e5135" : "#ccc"}
+                >
+                  {approval.length > 0
+                    ? approval.map((a, i) => (
+                        <Typography variant="body2" key={i}>
+                          Approved by:{" "}
+                          <b>{a.managerName ? a.managerName : "Manager"}</b> (
+                          {a.decision})
+                        </Typography>
+                      ))
+                    : "Waiting for manager review..."}
                 </StatusStep>
 
-            
-                <StatusStep icon={<ReceiptIcon />} title="Purchase Order Generated" color={po.length > 0 ? "#1976d2" : "#ccc"}>
-                  {po.length > 0 ? (
-                    po.map((p, i) => (
-                      <Typography variant="body2" key={i}>PO Number: <b>{p.poNumber || `#${p.id}`}</b></Typography>
-                    ))
-                  ) : "Pending PO creation..."}
+                <StatusStep
+                  icon={<ReceiptIcon />}
+                  title="Purchase Order Generated"
+                  color={po.length > 0 ? "secondary.main" : "#ccc"}
+                >
+                  {po.length > 0
+                    ? po.map((p, i) => (
+                        <Typography variant="body2" key={i}>
+                          PO Number: <b>{p.poNumber || `#${p.id}`}</b>
+                        </Typography>
+                      ))
+                    : "Pending PO creation..."}
                 </StatusStep>
 
-              
-                <StatusStep icon={<LocalShippingIcon />} title="Delivery & Dispatch" color={delivery.length > 0 ? "#ed6c02" : "#ccc"}>
-                  {delivery.length > 0 ? (
-                    delivery.map((d, i) => (
-                      <Typography variant="body2" key={i}>Tracking: <b>{d.trackingNumber}</b> | Status: {d.deliveryStatus}</Typography>
-                    ))
-                  ) : "Awaiting dispatch from vendor..."}
+                <StatusStep
+                  icon={<LocalShippingIcon />}
+                  title="Delivery & Dispatch"
+                  color={delivery.length > 0 ? "secondary.main" : "#ccc"}
+                >
+                  {delivery.length > 0
+                    ? delivery.map((d, i) => (
+                        <Typography variant="body2" key={i}>
+                          Tracking: <b>{d.trackingNumber}</b> | Status:{" "}
+                          {d.deliveryStatus}
+                        </Typography>
+                      ))
+                    : "Awaiting dispatch from vendor..."}
                 </StatusStep>
               </Stack>
             </Grid>

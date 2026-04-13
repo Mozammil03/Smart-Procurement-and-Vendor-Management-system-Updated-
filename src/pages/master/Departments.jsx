@@ -87,7 +87,7 @@ export default function Departments() {
   };
 
   return (
-    <Box sx={{ bgcolor: "#f4f7f6", minHeight: "100vh", py: 4 }}>
+    <Box sx={{ bgcolor: "background.default", minHeight: "100vh", py: 4 }}>
       <Container maxWidth="lg">
         
       
@@ -95,11 +95,11 @@ export default function Departments() {
           elevation={0} 
           sx={{ 
             p: 4, mb: 4, textAlign: 'center', borderRadius: "16px", border: "1px solid #e0e0e0",
-            background: "linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)",
+            background: "linear-gradient(135deg, rgba(249,243,232,1) 0%, rgba(241,226,208,1) 100%)",
             borderLeft: "8px solid #3f51b5" 
           }}
         >
-          <Typography variant="h4" sx={{ fontWeight: 800, color: "#1a237e", display: 'inline-flex', alignItems: 'center', gap: 2 }}>
+          <Typography variant="h4" sx={{ fontWeight: 800, color: "primary.main", display: 'inline-flex', alignItems: 'center', gap: 2 }}>
             <BusinessIcon sx={{ fontSize: 45, color: "#3f51b5" }} />
             Department Management
           </Typography>
@@ -134,7 +134,7 @@ export default function Departments() {
         
           <Grid item xs={12} md={5}>
             <Paper elevation={0} sx={{ p: 3, borderRadius: "12px", border: "1px solid #e0e0e0", height: '100%' }}>
-              <Typography variant="h6" sx={{ mb: 2, fontWeight: "bold", color: "#666" }}>Quick Search</Typography>
+              <Typography variant="h6" sx={{ mb: 2, fontWeight: "bold", color: "text.secondary" }}>Quick Search</Typography>
               <Stack direction="row" spacing={1}>
                 <TextField
                   label="Search ID" size="small" fullWidth
@@ -188,7 +188,7 @@ export default function Departments() {
                               <IconButton 
                                 onClick={() => { setSelectedDept(d); setOpenDelete(true); }} 
                                 size="small" 
-                                sx={{ color: '#d32f2f', bgcolor: '#fff5f5', '&:hover': { bgcolor: '#ffebeb' } }}
+                                sx={{ color: '#9c3c31', bgcolor: '#f7e8dd', '&:hover': { bgcolor: '#ffebeb' } }}
                               >
                                 <DeleteIcon fontSize="small" />Delete
                               </IconButton>
@@ -225,7 +225,7 @@ export default function Departments() {
       </Dialog>
 
       <Dialog open={openDelete} onClose={() => setOpenDelete(false)}>
-        <DialogTitle sx={{ color: '#d32f2f', fontWeight: 'bold' }}>Remove Department?</DialogTitle>
+        <DialogTitle sx={{ color: '#9c3c31', fontWeight: 'bold' }}>Remove Department?</DialogTitle>
         <DialogContent>
           <DialogContentText>Deleting <b>{selectedDept.name}</b> will remove it from the system. This cannot be undone.</DialogContentText>
         </DialogContent>

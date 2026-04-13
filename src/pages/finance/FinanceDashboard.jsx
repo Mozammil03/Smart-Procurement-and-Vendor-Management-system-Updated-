@@ -4,6 +4,7 @@ import {
   ListItemIcon, ListItemText, Button, Avatar, Stack
 } from "@mui/material";
 
+import { getUserDisplayName, getUserAvatarInitial } from "../../utils/userUtils";
 import ReceiptIcon from '@mui/icons-material/Receipt';
 import PaymentIcon from '@mui/icons-material/Payment';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
@@ -16,6 +17,9 @@ const drawerWidth = 260;
 export default function FinanceDashboard() {
   const navigate = useNavigate();
   const location = useLocation();
+
+  const displayName = getUserDisplayName();
+  const displayInitial = getUserAvatarInitial(displayName);
 
   const logout = () => {
     localStorage.clear();
@@ -31,7 +35,13 @@ export default function FinanceDashboard() {
   ];
 
   return (
-    <Box sx={{ display: "flex", bgcolor: "#f4f7f6", minHeight: "100vh" }}>
+    <Box
+      sx={{
+        display: "flex",
+        bgcolor: "background.default",
+        minHeight: "100vh",
+      }}
+    >
       <AppBar
         position="fixed"
         elevation={0}
@@ -39,16 +49,23 @@ export default function FinanceDashboard() {
           zIndex: (theme) => theme.zIndex.drawer + 1,
           bgcolor: "white",
           color: "text.primary",
-          borderBottom: "1px solid #e0e0e0"
+          borderBottom: "1px solid #e0e0e0",
         }}
       >
-        <Toolbar sx={{ justifyContent: 'space-between' }}>
-          <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#1976d2' }}>
-            SMART <span style={{ color: '#333' }}>FINANCE</span>
+        <Toolbar sx={{ justifyContent: "space-between" }}>
+          <Typography
+            variant="h6"
+            sx={{ fontWeight: "bold", color: "secondary.main" }}
+          >
+            SMART <span style={{ color: "#7a6248" }}>FINANCE</span>
           </Typography>
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-            <Typography variant="body2">Welcome, <b>Finance User</b></Typography>
-            <Avatar sx={{ bgcolor: '#1976d2', width: 32, height: 32 }}>F</Avatar>
+          <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+            <Typography variant="body2">
+              Welcome, <b>{displayName}</b>
+            </Typography>
+            <Avatar sx={{ bgcolor: "secondary.main", width: 32, height: 32 }}>
+              {displayInitial}
+            </Avatar>
           </Box>
         </Toolbar>
       </AppBar>
@@ -57,38 +74,81 @@ export default function FinanceDashboard() {
         variant="permanent"
         sx={{
           width: drawerWidth,
-          [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: "border-box", border: 'none', boxShadow: '2px 0 10px rgba(0,0,0,0.05)' },
+          [`& .MuiDrawer-paper`]: {
+            width: drawerWidth,
+            boxSizing: "border-box",
+            border: "none",
+            boxShadow: "2px 0 10px rgba(0,0,0,0.05)",
+          },
         }}
       >
         <Toolbar />
-        <Box sx={{ overflow: "auto", display: 'flex', flexDirection: 'column', height: '100%' }}>
+        <Box
+          sx={{
+            overflow: "auto",
+            display: "flex",
+            flexDirection: "column",
+            height: "100%",
+          }}
+        >
           <List sx={{ pt: 2 }}>
-            <Typography variant="overline" sx={{ px: 3, fontWeight: 'bold', color: 'text.secondary' }}>Finance Panel</Typography>
+            <Typography
+              variant="overline"
+              sx={{ px: 3, fontWeight: "bold", color: "text.secondary" }}
+            >
+              Finance Panel
+            </Typography>
             {menuItems.map((item) => (
               <ListItemButton
                 key={item.text}
                 component={Link}
                 to={item.path}
-                selected={location.pathname === item.path || (location.pathname === '/finance' && item.path === '/finance/invoices')}
+                selected={
+                  location.pathname === item.path ||
+                  (location.pathname === "/finance" &&
+                    item.path === "/finance/invoices")
+                }
                 sx={{ mx: 1, borderRadius: 2, mb: 0.5 }}
               >
-                <ListItemIcon sx={{ minWidth: 40, color: (location.pathname === item.path || (location.pathname === '/finance' && item.path === '/finance/invoices')) ? '#1976d2' : 'inherit' }}>
+                <ListItemIcon
+                  sx={{
+                    minWidth: 40,
+                    color:
+                      location.pathname === item.path ||
+                      (location.pathname === "/finance" &&
+                        item.path === "/finance/invoices")
+                        ? "secondary.main"
+                        : "inherit",
+                  }}
+                >
                   {item.icon}
                 </ListItemIcon>
-                <ListItemText primary={item.text} primaryTypographyProps={{ fontSize: '0.9rem' }} />
+                <ListItemText
+                  primary={item.text}
+                  primaryTypographyProps={{ fontSize: "0.9rem" }}
+                />
               </ListItemButton>
             ))}
           </List>
 
-          <Box sx={{ mt: 'auto', p: 2 }}>
-            <Button fullWidth variant="outlined" color="error" startIcon={<LogoutIcon />} onClick={logout}>
+          <Box sx={{ mt: "auto", p: 2 }}>
+            <Button
+              fullWidth
+              variant="outlined"
+              color="error"
+              startIcon={<LogoutIcon />}
+              onClick={logout}
+            >
               Logout
             </Button>
           </Box>
         </Box>
       </Drawer>
 
-      <Box component="main" sx={{ flexGrow: 1, p: 4, width: `calc(100% - ${drawerWidth}px)` }}>
+      <Box
+        component="main"
+        sx={{ flexGrow: 1, p: 4, width: `calc(100% - ${drawerWidth}px)` }}
+      >
         <Toolbar />
         <Outlet />
       </Box>

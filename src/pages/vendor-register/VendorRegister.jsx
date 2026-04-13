@@ -129,11 +129,11 @@ export default function VendorRegister() {
           width: 450, 
           textAlign: "center",
           borderRadius: 2,
-          borderTop: '5px solid #1976d2',
+          borderTop: "5px solid",
         }}
       >
 
-      <Typography variant="h4" sx={{ mb: 1, fontWeight: 'bold', color: '#1976d2' }}>
+      <Typography variant="h4" sx={{ mb: 1, fontWeight: 'bold', color: "secondary.main" }}>
         Vendor Registration
       </Typography>
       <Typography variant="body2" sx={{ mb: 3, color: 'text.secondary' }}>

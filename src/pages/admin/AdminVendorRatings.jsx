@@ -57,13 +57,6 @@ export default function AdminVendorRatings() {
 
   const showMsg = (message, severity = "success") => setSnackbar({ open: true, message, severity });
 
-  const getAvgRatingColor = (avg) => {
-    const numericAvg = Number(avg);
-    const ratio = Math.max(0, Math.min(1, (numericAvg - 1) / 9));
-    const hue = ratio * 120;
-    return `hsl(${hue}, 75%, 92%)`;
-  };
-
   const submitRating = async (e) => {
     e.preventDefault();
     if (!form.vendorId) return showMsg("Please select a vendor.", "warning");
@@ -168,7 +161,7 @@ export default function AdminVendorRatings() {
   };
 
   return (
-    <Box sx={{ bgcolor: "#f4f7f6", minHeight: "100vh", py: 4 }}>
+    <Box sx={{ bgcolor: "background.default", minHeight: "100vh", py: 4 }}>
       <Container maxWidth="lg">
         <Paper
           elevation={0}
@@ -178,15 +171,16 @@ export default function AdminVendorRatings() {
             textAlign: "center",
             borderRadius: "12px",
             border: "1px solid #e0e0e0",
-            background: "linear-gradient(to right, #ffffff, #f8f9fa)",
-            borderLeft: "6px solid #1976d2",
+            background:
+              "linear-gradient(to right, rgba(249,243,232,1), rgba(241,226,208,1))",
+            borderLeft: "6px solid",
           }}
         >
           <Typography
             variant="h4"
             sx={{
               fontWeight: 800,
-              color: "#1a237e",
+              color: "primary.main",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -343,7 +337,7 @@ export default function AdminVendorRatings() {
                       type="submit"
                       variant="contained"
                       size="large"
-                      sx={{ bgcolor: "#1976d2" }}
+                      sx={{ bgcolor: "secondary.main" }}
                     >
                       Submit Rating
                     </Button>
@@ -364,36 +358,36 @@ export default function AdminVendorRatings() {
           }}
         >
           <Table>
-            <TableHead sx={{ bgcolor: "#fafafa" }}>
-              <TableRow sx={{ bgcolor: "#1976d2" }}>
-                <TableCell sx={{ fontWeight: "bold", color: "#fafafa" }}>
+            <TableHead sx={{ bgcolor: "background.paper" }}>
+              <TableRow sx={{ bgcolor: "#7a6248" }}>
+                <TableCell sx={{ fontWeight: "bold", color: "#e0e0e0" }}>
                   ID
                 </TableCell>
-                <TableCell sx={{ fontWeight: "bold", color: "#fafafa" }}>
+                <TableCell sx={{ fontWeight: "bold", color: "#e0e0e0" }}>
                   VENDOR
                 </TableCell>
-                <TableCell sx={{ fontWeight: "bold", color: "#fafafa" }}>
+                <TableCell sx={{ fontWeight: "bold", color: "#e0e0e0" }}>
                   COMPANY
                 </TableCell>
-                <TableCell sx={{ fontWeight: "bold", color: "#fafafa" }}>
+                <TableCell sx={{ fontWeight: "bold", color: "#e0e0e0" }}>
                   QUALITY
                 </TableCell>
-                <TableCell sx={{ fontWeight: "bold", color: "#fafafa" }}>
+                <TableCell sx={{ fontWeight: "bold", color: "#e0e0e0" }}>
                   DELIVERY
                 </TableCell>
-                <TableCell sx={{ fontWeight: "bold", color: "#fafafa" }}>
+                <TableCell sx={{ fontWeight: "bold", color: "#e0e0e0" }}>
                   PRICE
                 </TableCell>
-                <TableCell sx={{ fontWeight: "bold", color: "#fafafa" }}>
+                <TableCell sx={{ fontWeight: "bold", color: "#e0e0e0" }}>
                   AVERAGE
                 </TableCell>
-                <TableCell sx={{ fontWeight: "bold", color: "#fafafa" }}>
+                <TableCell sx={{ fontWeight: "bold", color: "#e0e0e0" }}>
                   RATED BY
                 </TableCell>
-                <TableCell sx={{ fontWeight: "bold", color: "#fafafa" }}>
+                <TableCell sx={{ fontWeight: "bold", color: "#e0e0e0" }}>
                   DATE
                 </TableCell>
-                <TableCell sx={{ fontWeight: "bold", color: "#fafafa" }}>
+                <TableCell sx={{ fontWeight: "bold", color: "#e0e0e0" }}>
                   COMMENTS
                 </TableCell>
               </TableRow>
@@ -406,14 +400,8 @@ export default function AdminVendorRatings() {
                     3
                   ).toFixed(2);
                   return (
-                    <TableRow
-                      key={r.id}
-                      hover
-                      sx={{ backgroundColor: getAvgRatingColor(avg) }}
-                    >
-                      <TableCell>
-                        {r.vendor?.id || "No ID"}
-                      </TableCell>
+                    <TableRow key={r.id} hover>
+                      <TableCell>{r.vendor?.id || "No ID"}</TableCell>
                       <TableCell>
                         {r.vendor?.contactPerson || `Vendor ${r.vendor?.id}`}
                       </TableCell>

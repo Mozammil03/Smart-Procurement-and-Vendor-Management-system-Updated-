@@ -108,7 +108,7 @@ const getById = async (id) => {
 };
 
   return (
-    <Box sx={{ bgcolor: "#f4f7f6", minHeight: "100vh", py: 4 }}>
+    <Box sx={{ bgcolor: "background.default", minHeight: "100vh", py: 4 }}>
       <Container maxWidth="lg">
         
       
@@ -120,12 +120,12 @@ const getById = async (id) => {
     textAlign: 'center', 
     borderRadius: "12px", 
     border: "1px solid #e0e0e0",
-    background: "linear-gradient(to right, #ffffff, #f8f9fa)", 
-    borderLeft: "6px solid #1565c0" 
+    background: "linear-gradient(to right, rgba(249,243,232,1), rgba(241,226,208,1))", 
+    borderLeft: "6px solid #7a6248" 
   }}
 >
-  <Typography variant="h4" sx={{ fontWeight: 800, color: "#1a237e", display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 2 }}>
-    <InventoryIcon sx={{ fontSize: 40, color: "#1565c0" }} />
+  <Typography variant="h4" sx={{ fontWeight: 800, color: "primary.main", display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 2 }}>
+    <InventoryIcon sx={{ fontSize: 40, color: "#7a6248" }} />
     Items Management
   </Typography>
   <Typography variant="body1" color="text.secondary" sx={{ mt: 1 }}>
@@ -167,7 +167,7 @@ const getById = async (id) => {
                <Stack direction="row" spacing={1}>
     <Button 
       fullWidth variant="contained" type="submit" 
-      sx={{ bgcolor: editId ? "#ed6c02" : "#1976d2", fontWeight: 'bold' }}
+      sx={{ bgcolor: editId ? "primary.main" : "secondary.main", fontWeight: 'bold' }}
     >
       {editId ? "UPDATE" : "SAVE"}
     </Button>
@@ -201,7 +201,7 @@ const getById = async (id) => {
           <Table>
             <TableHead 
               sx={{ 
-                bgcolor: "#1565c0", 
+                bgcolor: "#7a6248", 
                 "& .MuiTableCell-head": { 
                   color: "white", 
                   fontWeight: "bold", 
@@ -224,7 +224,7 @@ const getById = async (id) => {
                 <TableRow key={i.id} hover sx={{ "&:last-child td": { borderBottom: 0 } }}>
                   <TableCell sx={{ borderRight: "1px solid #eee", fontWeight: 500 }}>{i.itemName}</TableCell>
                   <TableCell sx={{ borderRight: "1px solid #eee" }}>{i.category}</TableCell>
-                  <TableCell sx={{ borderRight: "1px solid #eee", fontWeight: 'bold', color: '#2e7d32' }}>
+                  <TableCell sx={{ borderRight: "1px solid #eee", fontWeight: 'bold', color: "primary.main" }}>
                     ₹ {parseFloat(i.price).toLocaleString()}
                   </TableCell>
                   <TableCell align="center">
@@ -238,7 +238,7 @@ const getById = async (id) => {
                       </Button>
                       <Button 
                         variant="contained" size="small" 
-                        sx={{ bgcolor: "#d32f2f", minWidth: "80px", fontSize: '0.75rem' }}
+                        sx={{ bgcolor: "#9c3c31", minWidth: "80px", fontSize: '0.75rem' }}
                         onClick={() => confirmDelete(i)}
                       >
                         DELETE
@@ -254,7 +254,7 @@ const getById = async (id) => {
 
 
       <Dialog open={openDelete} onClose={() => setOpenDelete(false)}>
-        <DialogTitle sx={{ fontWeight: 'bold', color: '#d32f2f' }}>Delete Item?</DialogTitle>
+        <DialogTitle sx={{ fontWeight: 'bold', color: '#9c3c31' }}>Delete Item?</DialogTitle>
         <DialogContent>
           <DialogContentText>Are you sure you want to remove <b>{itemToDelete?.itemName}</b>? This action is permanent.</DialogContentText>
         </DialogContent>

@@ -40,8 +40,8 @@ export default function ViewPayments() {
     <Container maxWidth="lg" sx={{ mt: 2 }}>
       <Box sx={{ mb: 4, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <Box>
-          <Typography variant="h4" sx={{ fontWeight: 800, color: "#333", display: 'flex', alignItems: 'center', gap: 2 }}>
-            <PaymentIcon sx={{ fontSize: 40, color: "#1976d2" }} />
+          <Typography variant="h4" sx={{ fontWeight: 800, color: "text.primary", display: 'flex', alignItems: 'center', gap: 2 }}>
+            <PaymentIcon sx={{ fontSize: 40, color: "secondary.main" }} />
             Payment History
           </Typography>
           <Typography variant="body1" color="text.secondary">
@@ -54,14 +54,14 @@ export default function ViewPayments() {
             value={paymentId} onChange={e => setPaymentId(e.target.value)}
             InputProps={{ startAdornment: <InputAdornment position="start"><SearchIcon fontSize="small" /></InputAdornment> }}
           />
-          <Button variant="contained" onClick={searchPayment} sx={{ bgcolor: "#1976d2", minWidth: '90px' }}>SEARCH</Button>
+          <Button variant="contained" onClick={searchPayment} sx={{ bgcolor: "secondary.main", minWidth: '90px' }}>SEARCH</Button>
           <Button variant="outlined" onClick={load} sx={{ minWidth: '40px', px: 1 }}><RestartAltIcon /></Button>
         </Stack>
       </Box>
 
       <Paper elevation={0} sx={{ borderRadius: "12px", border: "1px solid #e0e0e0", overflow: "hidden", boxShadow: "0 4px 12px rgba(0,0,0,0.05)" }}>
         <Table>
-          <TableHead sx={{ bgcolor: "#fafafa",background:'#1976d2' }}>
+          <TableHead sx={{ bgcolor: "secondary.main" }}>
             <TableRow>
               <TableCell sx={{ fontWeight: 'bold' }}>ID</TableCell>
               <TableCell sx={{ fontWeight: 'bold' }}>INVOICE</TableCell>
@@ -84,8 +84,8 @@ export default function ViewPayments() {
                     label={pay.status} size="small"
                     sx={{
                       fontWeight: 'bold', borderRadius: '6px', fontSize: '0.7rem',
-                      bgcolor: pay.status === "PAID" || pay.status === "COMPLETED" ? "#e8f5e9" : "#fff3e0",
-                      color: pay.status === "PAID" || pay.status === "COMPLETED" ? "#2e7d32" : "#ef6c00"
+                      bgcolor: pay.status === "PAID" || pay.status === "COMPLETED" ? "#f3e5cf" : "#f7e1ca",
+                      color: pay.status === "PAID" || pay.status === "COMPLETED" ? "#6e5135" : "#a87954"
                     }}
                   />
                 </TableCell>

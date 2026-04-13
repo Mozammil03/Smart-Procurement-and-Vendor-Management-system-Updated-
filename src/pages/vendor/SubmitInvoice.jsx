@@ -41,8 +41,8 @@ export default function SubmitInvoice() {
   return (
     <Container maxWidth="md" sx={{ mt: 2 }}>
       <Box sx={{ mb: 4, textAlign: 'center' }}>
-        <Typography variant="h4" sx={{ fontWeight: 800, color: "#333", display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 2 }}>
-          <ReceiptIcon sx={{ fontSize: 40, color: "#1976d2" }} />
+        <Typography variant="h4" sx={{ fontWeight: 800, color: "text.primary", display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 2 }}>
+          <ReceiptIcon sx={{ fontSize: 40, color: "secondary.main" }} />
           Submit Invoice
         </Typography>
         <Typography variant="body1" color="text.secondary">
@@ -72,7 +72,7 @@ export default function SubmitInvoice() {
               />
             </Grid>
             <Grid item xs={12}>
-              <Button fullWidth variant="contained" type="submit" size="large" sx={{ bgcolor: "#1976d2", fontWeight: 'bold', mt: 2 }}>
+              <Button fullWidth variant="contained" type="submit" size="large" sx={{ bgcolor: "secondary.main", fontWeight: 'bold', mt: 2 }}>
                 SUBMIT INVOICE
               </Button>
             </Grid>

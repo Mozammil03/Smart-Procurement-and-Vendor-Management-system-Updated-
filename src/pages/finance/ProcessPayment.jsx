@@ -50,8 +50,8 @@ export default function ProcessPayment() {
   return (
     <Container maxWidth="md" sx={{ mt: 2 }}>
       <Box sx={{ mb: 4, textAlign: 'left' }}>
-        <Typography variant="h4" sx={{ fontWeight: 800, color: "#333", display: 'flex', alignItems: 'center', justifyContent: 'flex-start', gap: 2 }}>
-          <AccountBalanceWalletIcon sx={{ fontSize: 40, color: "#1976d2" }} />
+        <Typography variant="h4" sx={{ fontWeight: 800, color: "text.primary", display: 'flex', alignItems: 'center', justifyContent: 'flex-start', gap: 2 }}>
+          <AccountBalanceWalletIcon sx={{ fontSize: 40, color: "secondary.main" }} />
           Process Payment
         </Typography>
         <Typography variant="body1" color="text.secondary">Record a new payment transaction against an invoice</Typography>
@@ -124,7 +124,7 @@ export default function ProcessPayment() {
             </Grid>
 
             <Grid item xs={12}>
-              <Button fullWidth variant="contained" type="submit" size="large" sx={{ bgcolor: "#1976d2", fontWeight: 'bold', mt: 2 }}>
+              <Button fullWidth variant="contained" type="submit" size="large" sx={{ bgcolor: "secondary.main", fontWeight: 'bold', mt: 2 }}>
                 PROCESS PAYMENT
               </Button>
             </Grid>

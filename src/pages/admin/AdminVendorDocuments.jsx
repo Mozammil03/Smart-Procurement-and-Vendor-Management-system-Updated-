@@ -118,7 +118,7 @@ export default function AdminVendorDocuments() {
       >
         <Typography
           variant="h4"
-          sx={{ mb: 2, fontWeight: 900, color: "#0d47a1" }}
+          sx={{ mb: 2, fontWeight: 900, color: "#7a6248" }}
         >
           Vendor Document Review
         </Typography>
@@ -158,30 +158,30 @@ export default function AdminVendorDocuments() {
         </Stack>
 
         <Table>
-          <TableHead sx={{ background: "#1a237e" }}>
-            <TableRow>
-              <TableCell sx={{ color: "#fff", fontWeight: "bold" }}>
+          <TableHead sx={{ background: "secondary.contrastText" }}>
+            <TableRow sx={{ background: "#7a6248", color: "#e0e0e0" }}>
+              <TableCell sx={{ color: "#e0e0e0", fontWeight: "bold" }}>
                 ID
               </TableCell>
-              <TableCell sx={{ color: "#fff", fontWeight: "bold" }}>
+              <TableCell sx={{ color: "#e0e0e0", fontWeight: "bold" }}>
                 Vendor
               </TableCell>
-              <TableCell sx={{ color: "#fff", fontWeight: "bold" }}>
+              <TableCell sx={{ color: "#e0e0e0", fontWeight: "bold" }}>
                 Document Name
               </TableCell>
-              <TableCell sx={{ color: "#fff", fontWeight: "bold" }}>
+              <TableCell sx={{ color: "#e0e0e0", fontWeight: "bold" }}>
                 Type
               </TableCell>
-              <TableCell sx={{ color: "#fff", fontWeight: "bold" }}>
+              <TableCell sx={{ color: "#e0e0e0", fontWeight: "bold" }}>
                 Number
               </TableCell>
-              <TableCell sx={{ color: "#fff", fontWeight: "bold" }}>
+              <TableCell sx={{ color: "#e0e0e0", fontWeight: "bold" }}>
                 Status
               </TableCell>
-              <TableCell sx={{ color: "#fff", fontWeight: "bold" }}>
+              <TableCell sx={{ color: "#e0e0e0", fontWeight: "bold" }}>
                 Admin Comment
               </TableCell>
-              <TableCell sx={{ color: "#fff", fontWeight: "bold" }}>
+              <TableCell sx={{ color: "#e0e0e0", fontWeight: "bold" }}>
                 Actions
               </TableCell>
             </TableRow>
@@ -191,7 +191,11 @@ export default function AdminVendorDocuments() {
               documents.map((doc) => (
                 <TableRow key={doc.id} hover>
                   <TableCell>{doc.id || "N/A"}</TableCell>
-                  <TableCell>{ doc.vendor?.contactPerson}<br/>{"(" + doc.vendor?.companyName + ")"|| "N/A"}</TableCell>
+                  <TableCell>
+                    {doc.vendor?.contactPerson}
+                    <br />
+                    {"(" + doc.vendor?.companyName + ")" || "N/A"}
+                  </TableCell>
                   <TableCell>
                     {doc.documentName ||
                       doc.documentNumber ||
@@ -237,16 +241,16 @@ export default function AdminVendorDocuments() {
                           fontWeight: "bold",
                           bgcolor:
                             doc.status === "ACCEPTED"
-                              ? "#e8f5e9"
+                              ? "#f3e5cf"
                               : doc.status === "REJECTED"
-                                ? "#ffebee"
-                                : "#e3f2fd",
+                                ? "#f6e2d7"
+                                : "#f4e5d0",
                           color:
                             doc.status === "ACCEPTED"
-                              ? "#2e7d32"
+                              ? "#6e5135"
                               : doc.status === "REJECTED"
-                                ? "#c62828"
-                                : "#1565c0",
+                                ? "#8f3b32"
+                                : "#7a6248",
                         }}
                       />
                     )}

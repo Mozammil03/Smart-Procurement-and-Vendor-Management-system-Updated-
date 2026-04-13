@@ -86,77 +86,141 @@ export default function Inventory() {
   };
 
   return (
-    <Box sx={{ bgcolor: "#f4f7f6", minHeight: "100vh", py: 4 }}>
+    <Box sx={{ bgcolor: "background.default", minHeight: "100vh", py: 4 }}>
       <Container maxWidth="lg">
-
-
-        <Paper elevation={0} sx={{ p: 4, mb: 4, textAlign: 'center', borderRadius: "16px", border: "1px solid #e0e0e0", background: "linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)", borderLeft: "8px solid #1a237e" }}>
-                  <Typography variant="h4" sx={{ fontWeight: 800, color: "#333", display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 2 }}>
-            <WarehouseIcon sx={{ fontSize: 40, color: "#1976d2" }} />
+        <Paper
+          elevation={0}
+          sx={{
+            p: 4,
+            mb: 4,
+            textAlign: "center",
+            borderRadius: "16px",
+            border: "1px solid #e0e0e0",
+            background:
+              "linear-gradient(135deg, rgba(249,243,232,1) 0%, rgba(241,226,208,1) 100%)",
+            borderLeft: "8px solid",
+          }}
+        >
+          <Typography
+            variant="h4"
+            sx={{
+              fontWeight: 800,
+              color: "text.primary",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 2,
+            }}
+          >
+            <WarehouseIcon sx={{ fontSize: 40, color: "secondary.main" }} />
             Inventory Management
           </Typography>
-                  <Typography variant="body1" color="text.secondary">
+          <Typography variant="body1" color="text.secondary">
             Track real-time stock levels across all warehouse locations
           </Typography>
-          </Paper>
-          <Grid container spacing={3}>
-                  
-                    <Grid item xs={12} md={7} ml={10}>
-                      <Paper elevation={0} sx={{ p: 3, borderRadius: "12px", border: "1px solid #e0e0e0", height: '100%' }}>
-                        <Typography variant="h6" sx={{ mb: 2, fontWeight: "bold", color: "#3f51b5" }}>Add New Department</Typography>
-                        <form>
-                          <Stack direction="row" spacing={2}>
-                            <FormControl fullWidth size="small">
-                <InputLabel>Select Item</InputLabel>
-                <Select
-                  value={form.itemId}
-                  label="Select Item"
-                  onChange={(e) => setForm({ ...form, itemId: e.target.value })}
-                >
-                  {items.map((i) => <MenuItem key={i.id} value={i.id}>{i.itemName}</MenuItem>)}
-                </Select>
-              </FormControl>
-
-                <TextField
-                fullWidth label="Quantity" type="number" size="small"
-                value={form.quantityAvailable}
-                onChange={(e) => setForm({ ...form, quantityAvailable: e.target.value })}
-              />
-                             <Button 
-                fullWidth variant="contained" 
-                onClick={save}
-                startIcon={editId ? <EditIcon /> : <AddBoxIcon />}
-                sx={{ bgcolor: "#43a047", '&:hover': { bgcolor: "#2e7d32" }, fontWeight: 'bold' }}
+        </Paper>
+        <Grid container spacing={3}>
+          <Grid item xs={12} md={7} ml={10}>
+            <Paper
+              elevation={0}
+              sx={{
+                p: 3,
+                borderRadius: "12px",
+                border: "1px solid #e0e0e0",
+                height: "100%",
+              }}
+            >
+              <Typography
+                variant="h6"
+                sx={{ mb: 2, fontWeight: "bold", color: "#3f51b5" }}
               >
-                {editId ? "UPDATE" : "ADD STOCK"}
-              </Button>
+                Add New Department
+              </Typography>
+              <form>
+                <Stack direction="row" spacing={2}>
+                  <FormControl fullWidth size="small">
+                    <InputLabel>Select Item</InputLabel>
+                    <Select
+                      value={form.itemId}
+                      label="Select Item"
+                      onChange={(e) =>
+                        setForm({ ...form, itemId: e.target.value })
+                      }
+                    >
+                      {items.map((i) => (
+                        <MenuItem key={i.id} value={i.id}>
+                          {i.itemName}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
 
+                  <TextField
+                    fullWidth
+                    label="Quantity"
+                    type="number"
+                    size="small"
+                    value={form.quantityAvailable}
+                    onChange={(e) =>
+                      setForm({ ...form, quantityAvailable: e.target.value })
+                    }
+                  />
+                  <Button
+                    fullWidth
+                    variant="contained"
+                    onClick={save}
+                    startIcon={editId ? <EditIcon /> : <AddBoxIcon />}
+                    sx={{
+                      bgcolor: "#43a047",
+                      "&:hover": { bgcolor: "primary.main" },
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {editId ? "UPDATE" : "ADD STOCK"}
+                  </Button>
+                </Stack>
+              </form>
+            </Paper>
+          </Grid>
+
+          <Grid item xs={12} md={5} ml={10}>
+            <Paper
+              elevation={0}
+              sx={{
+                p: 3,
+                borderRadius: "12px",
+                border: "1px solid #e0e0e0",
+                height: "100%",
+              }}
+            >
+              <Typography
+                variant="h6"
+                sx={{ mb: 2, fontWeight: "bold", color: "text.secondary" }}
+              >
+                Quick Search
+              </Typography>
+              <Stack direction="row" spacing={1}>
+                <TextField
+                  fullWidth
+                  placeholder="Search inventory by item name..."
+                  size="small"
+                  variant="outlined"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <SearchIcon color="action" />
+                      </InputAdornment>
+                    ),
+                  }}
+                />
               </Stack>
-            </form>
-          </Paper>
+            </Paper>
+          </Grid>
         </Grid>
-          
-                  
-                    <Grid item xs={12} md={5} ml={10}>
-                      <Paper elevation={0} sx={{ p: 3, borderRadius: "12px", border: "1px solid #e0e0e0", height: '100%' }}>
-                        <Typography variant="h6" sx={{ mb: 2, fontWeight: "bold", color: "#666" }}>Quick Search</Typography>
-                        <Stack direction="row" spacing={1}>
-                         <TextField
-                          fullWidth
-                          placeholder="Search inventory by item name..."
-                          size="small"
-                          variant="outlined"
-                          value={search} onChange={(e) => setSearch(e.target.value)}
-                          InputProps={{
-                            startAdornment: <InputAdornment position="start"><SearchIcon color="action" /></InputAdornment>
-                          }}
-                        />
-                        </Stack>
-                      </Paper>
-                    </Grid>
-        </Grid>      
-        
-{/* 
+
+        {/* 
         <Paper elevation={0} sx={{ p: 2, mb: 3, border: "1px solid #e0e0e0", borderRadius: "12px" }}>
             <TextField
                 fullWidth
@@ -175,7 +239,7 @@ export default function Inventory() {
         
 
         <Paper elevation={0} sx={{ p: 3, mb: 4, border: "1px solid #e0e0e0", borderRadius: "12px" }}>
-          <Typography variant="h6" sx={{ mb: 3, fontWeight: 'bold', color: '#1a237e', display: 'flex', alignItems: 'center', gap: 1 }}>
+          <Typography variant="h6" sx={{ mb: 3, fontWeight: 'bold', color: "primary.main", display: 'flex', alignItems: 'center', gap: 1 }}>
             New Stock
           </Typography>
           
@@ -215,7 +279,7 @@ export default function Inventory() {
                 fullWidth variant="contained" 
                 onClick={save}
                 startIcon={editId ? <EditIcon /> : <AddBoxIcon />}
-                sx={{ bgcolor: "#43a047", '&:hover': { bgcolor: "#2e7d32" }, fontWeight: 'bold' }}
+                sx={{ bgcolor: "#43a047", '&:hover': { bgcolor: "primary.main" }, fontWeight: 'bold' }}
               >
                 {editId ? "UPDATE" : "ADD STOCK"}
               </Button>
@@ -229,11 +293,28 @@ export default function Inventory() {
         </Paper>
  */}
 
-        <Paper elevation={0} sx={{ borderRadius: "12px", border: "1px solid #e0e0e0", overflow: "hidden" ,mt:10}}>
+        <Paper
+          elevation={0}
+          sx={{
+            borderRadius: "12px",
+            border: "1px solid #e0e0e0",
+            overflow: "hidden",
+            mt: 10,
+          }}
+        >
           <Table>
-            <TableHead sx={{ bgcolor: "#e7e5e5", "& .MuiTableCell-head": { color: "Black", fontWeight: "bold", borderRight: "1px solid rgba(255,255,255,0.2)" } }}>
-              <TableRow>
-                <TableCell>ID</TableCell>
+            <TableHead
+              sx={{
+                bgcolor: "#e7e5e5",
+                "& .MuiTableCell-head": {
+                  color: "#e0e0e0",
+                  fontWeight: "bold",
+                  borderRight: "1px solid rgba(255,255,255,0.2)",
+                },
+              }}
+            >
+              <TableRow sx={{ bgcolor: "#7a6248" }}>
+                <TableCell sx={{ color: "#e0e0e0"}}>ID</TableCell>
                 <TableCell>Item Name</TableCell>
                 <TableCell>Stock Level</TableCell>
                 {/* <TableCell>Location</TableCell> */}
@@ -242,22 +323,43 @@ export default function Inventory() {
             </TableHead>
             <TableBody>
               {inventory
-                .filter((inv) => inv.item.itemName.toLowerCase().includes(search.toLowerCase()))
+                .filter((inv) =>
+                  inv.item.itemName
+                    .toLowerCase()
+                    .includes(search.toLowerCase()),
+                )
                 .map((inv) => (
-                  <TableRow key={inv.id} hover sx={{ "&:last-child td": { borderBottom: 0 } }}>
-                    <TableCell sx={{ borderRight: "1px solid #eee", fontFamily: 'monospace' }}>#{inv.id}</TableCell>
-                    <TableCell sx={{ borderRight: "1px solid #eee", fontWeight: 'bold' }}>{inv.item.itemName}</TableCell>
+                  <TableRow
+                    key={inv.id}
+                    hover
+                    sx={{ "&:last-child td": { borderBottom: 0 } }}
+                  >
+                    <TableCell
+                      sx={{
+                        borderRight: "1px solid #eee",
+                        fontFamily: "monospace",
+                      }}
+                    >
+                      #{inv.id}
+                    </TableCell>
+                    <TableCell
+                      sx={{ borderRight: "1px solid #eee", fontWeight: "bold" }}
+                    >
+                      {inv.item.itemName}
+                    </TableCell>
                     <TableCell sx={{ borderRight: "1px solid #eee" }}>
-                        <Chip 
-                            label={inv.quantityAvailable}
-                            size="small"
-                            sx={{ 
-                                fontWeight: 'bold', 
-                                bgcolor: inv.quantityAvailable < 10 ? "#ffebee" : "#e8f5e9",
-                                color: inv.quantityAvailable < 10 ? "#d32f2f" : "#2e7d32",
-                                border: `1px solid ${inv.quantityAvailable < 10 ? "#ef9a9a" : "#c8e6c9"}`
-                            }}
-                        />
+                      <Chip
+                        label={inv.quantityAvailable}
+                        size="small"
+                        sx={{
+                          fontWeight: "bold",
+                          bgcolor:
+                            inv.quantityAvailable < 10 ? "#f6e2d7" : "#f3e5cf",
+                          color:
+                            inv.quantityAvailable < 10 ? "#9c3c31" : "#6e5135",
+                          border: `1px solid ${inv.quantityAvailable < 10 ? "#ef9a9a" : "#c8e6c9"}`,
+                        }}
+                      />
                     </TableCell>
                     {/* <TableCell sx={{ borderRight: "1px solid #eee" }}>
                         <Stack direction="row" spacing={1} alignItems="center">
@@ -266,9 +368,27 @@ export default function Inventory() {
                         </Stack>
                     </TableCell> */}
                     <TableCell align="center">
-                      <Stack direction="row" spacing={1} justifyContent="center">
-                        <IconButton onClick={() => getById(inv.id)} size="small" color="primary"><EditIcon fontSize="small" />Edit </IconButton>
-                        <IconButton onClick={() => deleteInventory(inv.id)} size="small" color="error"><DeleteIcon fontSize="small" />Delete </IconButton>
+                      <Stack
+                        direction="row"
+                        spacing={1}
+                        justifyContent="center"
+                      >
+                        <IconButton
+                          onClick={() => getById(inv.id)}
+                          size="small"
+                          color="primary"
+                        >
+                          <EditIcon fontSize="small" />
+                          Edit{" "}
+                        </IconButton>
+                        <IconButton
+                          onClick={() => deleteInventory(inv.id)}
+                          size="small"
+                          color="error"
+                        >
+                          <DeleteIcon fontSize="small" />
+                          Delete{" "}
+                        </IconButton>
                       </Stack>
                     </TableCell>
                   </TableRow>
@@ -278,8 +398,15 @@ export default function Inventory() {
         </Paper>
       </Container>
 
-      <Snackbar open={snackbar.open} autoHideDuration={4000} onClose={() => setSnackbar({ ...snackbar, open: false })} anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
-        <Alert severity={snackbar.severity} variant="filled">{snackbar.message}</Alert>
+      <Snackbar
+        open={snackbar.open}
+        autoHideDuration={4000}
+        onClose={() => setSnackbar({ ...snackbar, open: false })}
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+      >
+        <Alert severity={snackbar.severity} variant="filled">
+          {snackbar.message}
+        </Alert>
       </Snackbar>
     </Box>
   );
