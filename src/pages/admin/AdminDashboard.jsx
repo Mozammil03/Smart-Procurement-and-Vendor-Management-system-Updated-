@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useLocation, Link } from "react-router-dom";
+import { useNavigate, useLocation, Link, Outlet } from "react-router-dom";
 import api from "../../api/axios";
 
 import {
@@ -21,6 +21,8 @@ import StorefrontIcon from '@mui/icons-material/Storefront';
 import PendingActionsIcon from '@mui/icons-material/PendingActions';
 import CategoryIcon from '@mui/icons-material/Category';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
+import StarIcon from '@mui/icons-material/Star';
+import DescriptionIcon from '@mui/icons-material/Description';
 import RefreshIcon from '@mui/icons-material/Refresh';
 
 const drawerWidth = 260;
@@ -70,6 +72,7 @@ export default function AdminDashboard() {
   const [recentPOs, setRecentPOs] = useState([]);
   const [recentVendors, setRecentVendors] = useState([]);
   const [loading, setLoading] = useState(true);
+  const showOverview = location.pathname === "/admin" || location.pathname === "/admin/";
 
   const logout = () => { localStorage.clear(); navigate("/"); };
 
@@ -96,9 +99,9 @@ export default function AdminDashboard() {
   useEffect(() => { loadDashboard(); }, []);
 
   const menuItems = [
-    { text: "Roles", icon: <VerifiedUserIcon />, path: "/master/roles" },
-    { text: "Departments", icon: <BusinessCenterIcon />, path: "/master/departments" },
-    { text: "Users", icon: <PeopleIcon />, path: "/master/users" },
+    { text: "Roles", icon: <VerifiedUserIcon />, path: "/admin/roles" },
+    { text: "Departments", icon: <BusinessCenterIcon />, path: "/admin/departments" },
+    { text: "Users", icon: <PeopleIcon />, path: "/admin/users" },
   ];
 
   const procurementItems = [
@@ -106,6 +109,8 @@ export default function AdminDashboard() {
     { text: "Purchase Order", icon: <ShoppingCartIcon />, path: "/admin/PurchaseOrder" },
     { text: "Inventory", icon: <InventoryIcon />, path: "/admin/Inventory" },
     { text: "Vendor Approval", icon: <VerifiedUserIcon />, path: "/admin/VendorApproval" },
+    { text: "Vendor Ratings", icon: <StarIcon />, path: "/admin/vendor-ratings" },
+    { text: "Vendor Documents", icon: <DescriptionIcon />, path: "/admin/vendor-documents" },
   ];
 
   return (
@@ -166,55 +171,57 @@ export default function AdminDashboard() {
       <Box component="main" sx={{ flexGrow: 1, p: 4 }}>
         <Toolbar />
 
-        {/* Header */}
-        <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 1 }}>
-          <Box>
-            <Typography variant="h4" sx={{ fontWeight: 900, color: '#1a1a2e' }}>Dashboard Overview</Typography>
-            <Typography variant="body2" color="text.secondary">Live procurement & vendor data</Typography>
-          </Box>
-          <Button variant="outlined" startIcon={<RefreshIcon />} onClick={loadDashboard} size="small">
-            Refresh
-          </Button>
-        </Stack>
+        {showOverview && (
+          <>
+            {/* Header */}
+            <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 1 }}>
+              <Box>
+                <Typography variant="h4" sx={{ fontWeight: 900, color: '#1a1a2e' }}>Dashboard Overview</Typography>
+                <Typography variant="body2" color="text.secondary">Live procurement & vendor data</Typography>
+              </Box>
+              <Button variant="outlined" startIcon={<RefreshIcon />} onClick={loadDashboard} size="small">
+                Refresh
+              </Button>
+            </Stack>
 
-        {/* Stat Cards */}
-        <Grid container spacing={3} sx={{ mb: 4, mt: 1 }}>
-          <StatCard
-            title="Pending Vendor Approvals"
-            value={stats?.pendingVendors ?? "—"}
-            color="#ed6c02"
-            icon={<PendingActionsIcon />}
-            subtitle={`${stats?.approvedVendors ?? 0} approved`}
-            loading={loading}
-          />
-          <StatCard
-            title="Active Vendors"
-            value={stats?.approvedVendors ?? "—"}
-            color="#1976d2"
-            icon={<StorefrontIcon />}
-            subtitle={`${stats?.totalVendors ?? 0} total`}
-            loading={loading}
-          />
-          <StatCard
-            title="Total Purchase Orders"
-            value={stats?.totalPurchaseOrders ?? "—"}
-            color="#2e7d32"
-            icon={<ShoppingCartIcon />}
-            subtitle="All time"
-            loading={loading}
-          />
-          <StatCard
-            title="Low Stock Alerts"
-            value={stats?.lowStockAlerts ?? "—"}
-            color="#d32f2f"
-            icon={<WarningAmberIcon />}
-            subtitle="Items below qty 10"
-            loading={loading}
-          />
-        </Grid>
+            {/* Stat Cards */}
+            <Grid container spacing={3} sx={{ mb: 4, mt: 1 }}>
+              <StatCard
+                title="Pending Vendor Approvals"
+                value={stats?.pendingVendors ?? "—"}
+                color="#ed6c02"
+                icon={<PendingActionsIcon />}
+                subtitle={`${stats?.approvedVendors ?? 0} approved`}
+                loading={loading}
+              />
+              <StatCard
+                title="Active Vendors"
+                value={stats?.approvedVendors ?? "—"}
+                color="#1976d2"
+                icon={<StorefrontIcon />}
+                subtitle={`${stats?.totalVendors ?? 0} total`}
+                loading={loading}
+              />
+              <StatCard
+                title="Total Purchase Orders"
+                value={stats?.totalPurchaseOrders ?? "—"}
+                color="#2e7d32"
+                icon={<ShoppingCartIcon />}
+                subtitle="All time"
+                loading={loading}
+              />
+              <StatCard
+                title="Low Stock Alerts"
+                value={stats?.lowStockAlerts ?? "—"}
+                color="#d32f2f"
+                icon={<WarningAmberIcon />}
+                subtitle="Items below qty 10"
+                loading={loading}
+              />
+            </Grid>
 
-        {/* Second row */}
-        <Grid container spacing={3} sx={{ mb: 4 }}>
+            {/* Second row */}
+            <Grid container spacing={3} sx={{ mb: 4 }}>
           <StatCard
             title="Pending Requisitions"
             value={stats?.pendingRequisitions ?? "—"}
@@ -343,6 +350,8 @@ export default function AdminDashboard() {
             </Paper>
           </Grid>
         </Grid>
+        </>) }
+        <Outlet />
       </Box>
     </Box>
   );

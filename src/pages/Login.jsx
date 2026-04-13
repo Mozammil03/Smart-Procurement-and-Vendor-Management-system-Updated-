@@ -55,11 +55,25 @@ export default function Login() {
         password: form.password,
       });
 
-      // console.log("Login Response Data:", res.data);
-      localStorage.setItem("token", res.data.token);
-      localStorage.setItem("role", res.data.role);
-      localStorage.setItem("userId", res.data.id);
-      const role = res.data.role?.toUpperCase();
+      console.debug("Login response:", res.data);
+      const loginId = res.data.id ?? res.data.userId;
+      if (!loginId) {
+        showSnackbar("Login response did not include a user ID", "error");
+        return;
+      }
+
+      localStorage.setItem("token", res.data.token || "");
+      const normalizedRole = (res.data.role || "").replace(/^ROLE_/, "").toUpperCase();
+      localStorage.setItem("role", normalizedRole);
+      localStorage.setItem("userId", String(loginId));
+      const role = normalizedRole;
+
+      if (role === "VENDOR") {
+        const vendorId = res.data.vendorId ?? loginId;
+        localStorage.setItem("vendorId", String(vendorId));
+      } else {
+        localStorage.removeItem("vendorId");
+      }
 
       showSnackbar("Login successful!");
 
@@ -73,7 +87,8 @@ export default function Login() {
       }, 800);
 
     } catch (error) {
-      showSnackbar("Login Failed", "error");
+      const message = error?.response?.data?.message || error?.response?.data?.error || error?.response?.statusText || "Login Failed";
+      showSnackbar(message, "error");
     }
   };
 

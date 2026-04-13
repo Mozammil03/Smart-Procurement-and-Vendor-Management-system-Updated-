@@ -1,12 +1,13 @@
-import { useState } from "react";
-import { uploadDocument } from "../../api/vendorService";
+import { useEffect, useState } from "react";
+import { uploadDocument, getVendorDocuments, deleteVendorDocument } from "../../api/vendorService";
 
 import {
   Box, Typography, Paper, TextField, Button, Grid,
-  Container, Snackbar, Alert
+  Container, Snackbar, Alert, Table, TableHead, TableRow, TableCell, TableBody, IconButton, Chip
 } from "@mui/material";
 
 import FileUploadIcon from '@mui/icons-material/FileUpload';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function UploadDocuments() {
   const [form, setForm] = useState({
@@ -14,14 +15,35 @@ export default function UploadDocuments() {
     documentNumber: "",
     documentType: ""
   });
+  const [documents, setDocuments] = useState([]);
   const [snackbar, setSnackbar] = useState({ open: false, message: "", severity: "success" });
 
-  const vendorId = localStorage.getItem("vendorId") || 1;
+  const vendorId = Number(localStorage.getItem("vendorId") || 1);
 
   const showMsg = (message, severity = "success") => setSnackbar({ open: true, message, severity });
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const loadDocuments = async () => {
+    try {
+      const res = await getVendorDocuments({ vendorId });
+      setDocuments(res.data || []);
+    } catch (err) {
+      console.error("Failed to load documents", err);
+    }
+  };
+
+  const handleDelete = async (documentId) => {
+    try {
+      await deleteVendorDocument(documentId);
+      showMsg("Document deleted successfully");
+      loadDocuments();
+    } catch (err) {
+      console.error(err);
+      showMsg("Failed to delete document", "error");
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -33,11 +55,16 @@ export default function UploadDocuments() {
       });
       showMsg("Document Uploaded Successfully!");
       setForm({ documentName: "", documentNumber: "", documentType: "" });
+      loadDocuments();
     } catch (err) {
       console.error(err);
       showMsg("Failed to upload document", "error");
     }
   };
+
+  useEffect(() => {
+    loadDocuments();
+  }, []);
 
   return (
     <Container maxWidth="md" sx={{ mt: 2 }}>
@@ -79,6 +106,58 @@ export default function UploadDocuments() {
             </Grid>
           </Grid>
         </form>
+      </Paper>
+
+      <Paper elevation={0} sx={{ mt: 4, p: 3, borderRadius: "12px", border: "1px solid #e0e0e0", background: "#fff" }}>
+        <Typography variant="h6" sx={{ mb: 2, fontWeight: 700, color: "#1a237e" }}>
+          Uploaded Documents
+        </Typography>
+        <Table>
+          <TableHead sx={{ background: "#1976d2" }}>
+            <TableRow>
+              <TableCell sx={{ color: "#fff", fontWeight: "bold" }}>Document Name</TableCell>
+              <TableCell sx={{ color: "#fff", fontWeight: "bold" }}>Document Number</TableCell>
+              <TableCell sx={{ color: "#fff", fontWeight: "bold" }}>Document Type</TableCell>
+              <TableCell sx={{ color: "#fff", fontWeight: "bold" }}>Status</TableCell>
+              <TableCell sx={{ color: "#fff", fontWeight: "bold" }}>Admin Comment</TableCell>
+              <TableCell sx={{ color: "#fff", fontWeight: "bold" }}>Actions</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {documents.length > 0 ? (
+              documents.map((doc) => (
+                <TableRow key={doc.id} hover>
+                  <TableCell>{doc.documentName || doc.documentNumber || doc.documentType || "-"}</TableCell>
+                  <TableCell>{doc.documentNumber || doc.documentName || doc.documentType || "-"}</TableCell>
+                  <TableCell>{doc.documentType || doc.documentName || doc.documentNumber || "-"}</TableCell>
+                  <TableCell>
+                    <Chip
+                      label={doc.status || "PENDING"}
+                      size="small"
+                      sx={{
+                        bgcolor: doc.status === "ACCEPTED" ? "#e8f5e9" : doc.status === "REJECTED" ? "#ffe8e8" : "#e3f2fd",
+                        color: doc.status === "ACCEPTED" ? "#2e7d32" : doc.status === "REJECTED" ? "#c62828" : "#1565c0",
+                        fontWeight: 'bold',
+                      }}
+                    />
+                  </TableCell>
+                  <TableCell>{doc.adminComment || "-"}</TableCell>
+                  <TableCell>
+                    <IconButton color="error" onClick={() => handleDelete(doc.id)}>
+                      <DeleteIcon />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={6} align="center" sx={{ py: 4, color: "#777" }}>
+                  No uploaded documents yet.
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
       </Paper>
 
       <Snackbar open={snackbar.open} autoHideDuration={4000} onClose={() => setSnackbar({ ...snackbar, open: false })} anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>

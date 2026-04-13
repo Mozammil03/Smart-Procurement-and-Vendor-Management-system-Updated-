@@ -150,7 +150,19 @@ export default function Roles() {
                   <TextField fullWidth label="Role ID" value={searchId} onChange={(e) => setSearchId(e.target.value)} size="small" sx={{ mb: 2 }} />
                   <Stack direction="row" spacing={1}>
                     <Button variant="contained" color="inherit" fullWidth onClick={async () => {
-                      try { const res = await API.get(`/roles/${searchId}`); setRoles(res.data ? [res.data] : []); } catch { setRoles([]); }
+                      try {
+                        if (!searchId || isNaN(searchId)) {
+                          setRoles([]);
+                          showMsg("Please enter a valid numeric ID", "error");
+                          return;
+                        }
+
+                        const res = await API.get(`/roles/${searchId}`);
+                        setRoles(res.data ? [res.data] : []);
+                      } catch {
+                        setRoles([]);
+                        showMsg("Role not found", "error");
+                      }
                     }}>Search</Button>
                     <Button variant="outlined" onClick={loadRoles}><RestartAltIcon /></Button>
                   </Stack>
