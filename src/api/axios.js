@@ -22,7 +22,8 @@ API.interceptors.response.use(
     const status = error?.response?.status;
     const requestUrl = error?.config?.url || "";
     const isAuthRequest = requestUrl.includes("/users/auth") || requestUrl.includes("users/auth");
-    if ((status === 401 || status === 403) && !isAuthRequest) {
+    const isVendorRegistration = requestUrl.includes("/vendors") && error?.config?.method === "post";
+    if ((status === 401 || status === 403) && !isAuthRequest && !isVendorRegistration) {
       window.location.href = "/notauthorized";
     }
     return Promise.reject(error);

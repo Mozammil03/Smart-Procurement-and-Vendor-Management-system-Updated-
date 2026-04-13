@@ -10,12 +10,21 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 export default function ViewPurchaseOrders() {
   const [orders, setOrders] = useState([]);
-  const vendorId = localStorage.getItem("vendorId") || 1;
+  const [loading, setLoading] = useState(true);
+  const vendorId = localStorage.getItem("vendorId");
 
   useEffect(() => {
+    if (!vendorId) {
+      setLoading(false);
+      return;
+    }
     getVendorPOs(vendorId)
-      .then(res => setOrders(res.data))
-      .catch(err => console.error(err));
+      .then(res => setOrders(res.data || []))
+      .catch(err => {
+        console.error("Failed to load purchase orders:", err);
+        setOrders([]);
+      })
+      .finally(() => setLoading(false));
   }, [vendorId]);
 
   return (
@@ -30,17 +39,26 @@ export default function ViewPurchaseOrders() {
         </Typography>
       </Box>
 
-      <Paper elevation={0} sx={{ borderRadius: "12px", border: "1px solid #e0e0e0", overflow: "hidden", boxShadow: "0 4px 12px rgba(0,0,0,0.05)" }}>
-        <Table>
-          <TableHead sx={{ bgcolor: "#fafafa" }}>
-            <TableRow>
-              <TableCell sx={{ fontWeight: 'bold' }}>PO NUMBER</TableCell>
-              <TableCell sx={{ fontWeight: 'bold' }}>ORDER DATE</TableCell>
-              <TableCell sx={{ fontWeight: 'bold' }}>STATUS</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {orders.length > 0 ? orders.map(po => (
+      {!vendorId ? (
+        <Paper elevation={0} sx={{ p: 4, textAlign: 'center', borderRadius: "12px", border: "1px solid #e0e0e0" }}>
+          <Typography color="error" sx={{ fontWeight: 'bold' }}>
+            Unable to load your purchase orders. Please log in again.
+          </Typography>
+        </Paper>
+      ) : (
+        <Paper elevation={0} sx={{ borderRadius: "12px", border: "1px solid #e0e0e0", overflow: "hidden", boxShadow: "0 4px 12px rgba(0,0,0,0.05)" }}>
+          <Table>
+            <TableHead sx={{ bgcolor: "#fafafa" }}>
+              <TableRow>
+                <TableCell sx={{ fontWeight: 'bold' }}>PO NUMBER</TableCell>
+                <TableCell sx={{ fontWeight: 'bold' }}>ORDER DATE</TableCell>
+                <TableCell sx={{ fontWeight: 'bold' }}>STATUS</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {loading ? (
+                <TableRow><TableCell colSpan={3} align="center" sx={{ py: 4 }}>Loading...</TableCell></TableRow>
+              ) : orders.length > 0 ? orders.map(po => (
               <TableRow key={po.id} hover>
                 <TableCell sx={{ fontFamily: 'monospace', fontWeight: 'bold' }}>#{po.poNumber}</TableCell>
                 <TableCell>{po.orderDate}</TableCell>
@@ -56,9 +74,10 @@ export default function ViewPurchaseOrders() {
                 </TableCell>
               </TableRow>
             )) : <TableRow><TableCell colSpan={3} align="center" sx={{ py: 4 }}>No Purchase Orders found.</TableCell></TableRow>}
-          </TableBody>
-        </Table>
-      </Paper>
+            </TableBody>
+          </Table>
+        </Paper>
+      )}
     </Container>
   );
 }

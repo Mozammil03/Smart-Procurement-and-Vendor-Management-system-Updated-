@@ -101,7 +101,9 @@ export default function VendorRegister() {
     }, 800);
       
     } catch (error) {
-      showSnackbar("Registration Failed", "error");
+      const message = error?.response?.data?.message || error?.response?.data?.error || error?.response?.statusText || "Registration Failed";
+      showSnackbar(message, "error");
+      console.error("Registration error:", error);
     }
   };
 
