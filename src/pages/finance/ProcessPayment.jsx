@@ -46,65 +46,152 @@ export default function ProcessPayment() {
       showMsg(msg, "error");
     }
   };
+  const [payments, setPayments] = useState([]);
+
+  useEffect(() => {
+    load();
+  }, []);
+
+  const load = () => {
+    API.get("/payment")
+      .then((res) => setPayments(res.data))
+      .catch((err) => console.error(err));
+  };
+
+  const validatePaid = (invId) => {
+    return payments.some((p) => p.invoice?.invoiceNumber === invId);
+  };
+
 
   return (
     <Container maxWidth="md" sx={{ mt: 2 }}>
-      <Box sx={{ mb: 4, textAlign: 'left' }}>
-        <Typography variant="h4" sx={{ fontWeight: 800, color: "#333", display: 'flex', alignItems: 'center', justifyContent: 'flex-start', gap: 2 }}>
+      <Box sx={{ mb: 4, textAlign: "left" }}>
+        <Typography
+          variant="h4"
+          sx={{
+            fontWeight: 800,
+            color: "#333",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "flex-start",
+            gap: 2,
+          }}
+        >
           <AccountBalanceWalletIcon sx={{ fontSize: 40, color: "#1976d2" }} />
           Process Payment
         </Typography>
-        <Typography variant="body1" color="text.secondary">Record a new payment transaction against an invoice</Typography>
+        <Typography variant="body1" color="text.secondary">
+          Record a new payment transaction against an invoice
+        </Typography>
       </Box>
 
-      <Paper elevation={0} sx={{ p: 4, borderRadius: "12px", border: "1px solid #e0e0e0", boxShadow: "0 4px 12px rgba(0,0,0,0.05)" }}>
+      <Paper
+        elevation={0}
+        sx={{
+          p: 4,
+          borderRadius: "12px",
+          border: "1px solid #e0e0e0",
+          boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
+        }}
+      >
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3}>
-
             <Grid item xs={12} sm={6}>
               <FormControl fullWidth required>
                 <InputLabel>Invoice</InputLabel>
-                <Select value={invoiceId} label="Invoice" onChange={e => setInvoiceId(e.target.value)}>
-                  {invoices.length > 0
-                    ? invoices.map(inv => (
+                <Select
+                  value={invoiceId}
+                  label="Invoice"
+                  onChange={(e) => setInvoiceId(e.target.value)}
+                >
+                  {invoices.length > 0 ? (
+                    invoices.map((inv, index) => {
+                      const isPaid = validatePaid(inv.invoiceNumber);
+                      return (
                         <MenuItem key={inv.id} value={inv.id}>
-                          #{inv.id} — {inv.invoiceNumber} (₹{inv.amount})
+                          <>
+                            {`#${inv.id} — ${inv.invoiceNumber} (₹${inv.amount}) `}
+                            {isPaid && (
+                              <span
+                                style={{
+                                  color: "#2e7d32",
+                                  fontWeight: "bold",
+                                  marginLeft: "6px",
+                                }}
+                              >
+                                (Paid)
+                              </span>
+                            )}
+                            {index === invoices.length - 1 && (
+                              <span
+                                style={{
+                                  color: "#fbc02d",
+                                  fontWeight: "bold",
+                                  marginLeft: "6px",
+                                }}
+                              >
+                                (Latest)
+                              </span>
+                            )}
+                          </>
                         </MenuItem>
-                      ))
-                    : <MenuItem disabled>No invoices found</MenuItem>
-                  }
+                      );
+                    })
+                  ) : (
+                    <MenuItem disabled>No invoices found</MenuItem>
+                  )}
                 </Select>
               </FormControl>
-              <Typography variant="caption" color="text.secondary" sx={{ mt: 0.5, display: 'block' }}>
+              <Typography
+                variant="caption"
+                color="text.secondary"
+                sx={{ mt: 0.5, display: "block" }}
+              >
                 Or type Invoice ID manually:
               </Typography>
               <TextField
-                fullWidth size="small" type="number" placeholder="Invoice ID"
-                value={invoiceId} onChange={e => setInvoiceId(e.target.value)}
+                fullWidth
+                size="small"
+                type="number"
+                placeholder="Invoice ID"
+                value={invoiceId}
+                onChange={(e) => setInvoiceId(e.target.value)}
                 sx={{ mt: 0.5 }}
               />
             </Grid>
 
             <Grid item xs={12} sm={6}>
               <TextField
-                fullWidth label="Paid Amount (₹)" type="number" required
-                value={paidAmount} onChange={e => setPaidAmount(e.target.value)}
+                fullWidth
+                label="Paid Amount (₹)"
+                type="number"
+                required
+                value={paidAmount}
+                onChange={(e) => setPaidAmount(e.target.value)}
                 inputProps={{ min: 0, step: "0.01" }}
               />
             </Grid>
 
             <Grid item xs={12} sm={6}>
               <TextField
-                fullWidth label="Payment Date" type="date" required
+                fullWidth
+                label="Payment Date"
+                type="date"
+                required
                 InputLabelProps={{ shrink: true }}
-                value={paymentDate} onChange={e => setPaymentDate(e.target.value)}
+                value={paymentDate}
+                onChange={(e) => setPaymentDate(e.target.value)}
               />
             </Grid>
 
             <Grid item xs={12} sm={6}>
               <FormControl fullWidth required>
                 <InputLabel>Payment Mode</InputLabel>
-                <Select value={paymentMode} label="Payment Mode" onChange={e => setPaymentMode(e.target.value)}>
+                <Select
+                  value={paymentMode}
+                  label="Payment Mode"
+                  onChange={(e) => setPaymentMode(e.target.value)}
+                >
                   <MenuItem value="CASH_TRANSFER">Cash Transfer</MenuItem>
                   <MenuItem value="BANK_TRANSFER">Bank Transfer</MenuItem>
                   <MenuItem value="UPI">UPI</MenuItem>
@@ -116,7 +203,11 @@ export default function ProcessPayment() {
             <Grid item xs={12}>
               <FormControl fullWidth required>
                 <InputLabel>Payment Status</InputLabel>
-                <Select value={status} label="Payment Status" onChange={e => setStatus(e.target.value)}>
+                <Select
+                  value={status}
+                  label="Payment Status"
+                  onChange={(e) => setStatus(e.target.value)}
+                >
                   <MenuItem value="COMPLETED">Completed</MenuItem>
                   <MenuItem value="PENDING">Pending</MenuItem>
                 </Select>
@@ -124,7 +215,13 @@ export default function ProcessPayment() {
             </Grid>
 
             <Grid item xs={12}>
-              <Button fullWidth variant="contained" type="submit" size="large" sx={{ bgcolor: "#1976d2", fontWeight: 'bold', mt: 2 }}>
+              <Button
+                fullWidth
+                variant="contained"
+                type="submit"
+                size="large"
+                sx={{ bgcolor: "#1976d2", fontWeight: "bold", mt: 2 }}
+              >
                 PROCESS PAYMENT
               </Button>
             </Grid>
@@ -132,8 +229,15 @@ export default function ProcessPayment() {
         </form>
       </Paper>
 
-      <Snackbar open={snackbar.open} autoHideDuration={4000} onClose={() => setSnackbar({ ...snackbar, open: false })} anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
-        <Alert severity={snackbar.severity} variant="filled">{snackbar.message}</Alert>
+      <Snackbar
+        open={snackbar.open}
+        autoHideDuration={4000}
+        onClose={() => setSnackbar({ ...snackbar, open: false })}
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+      >
+        <Alert severity={snackbar.severity} variant="filled">
+          {snackbar.message}
+        </Alert>
       </Snackbar>
     </Container>
   );
